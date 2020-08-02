@@ -15,14 +15,22 @@
     "react-scripts": "3.4.1",
     "typescript": "^3.9.7"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "scripts": {
+    "start": "npm run check && react-scripts start",
+    "build": "npm run build:prepare && react-scripts build",
+    "build:prepare": "rm -rf build/ && npm run lint:fix && npm run format:fix",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "check": "npm run lint && npm run format",
+    "lint": "eslint --color \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "lint:fix": "eslint --color --fix \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "format": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "format:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "browserslist": {
     "production": [
