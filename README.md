@@ -5,3 +5,7 @@
 ## Features
 
 Work In Progress
+
+## Favicon
+
+The Secret Fight Club (SFC) crown favicon was generated with [RealFaviconGenerator](https://realfavicongenerator.net/) [v0.16](https://realfavicongenerator.net/change_log#v0.16)
