@@ -11,6 +11,17 @@ on:
       # trigger on package*.json since dependencies changed
       - package.json
       - package-lock.json
+  pull_request:
+    branches:
+      - master
+    paths:
+      # trigger on .github since workflows changed
+      - '.github/**'
+      - 'public/**'
+      - 'src/**'
+      # trigger on package*.json since dependencies changed
+      - package.json
+      - package-lock.json
 
 jobs:
   continuous_integration:
@@ -33,6 +44,7 @@ jobs:
     name: Continuous deployment
     needs: [continuous_integration]
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.1
