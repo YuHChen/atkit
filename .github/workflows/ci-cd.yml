@@ -31,7 +31,7 @@ jobs:
     timeout-minutes: 15
   continuous_deployment:
     name: Continuous deployment
-    needs: Continuous integration
+    needs: [continuous_integration]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
