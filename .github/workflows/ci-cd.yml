@@ -1,0 +1,50 @@
+name: CI CD
+on:
+  push:
+    branches:
+      - master
+    paths:
+      # trigger on .github since workflows changed
+      - '.github/**'
+      - 'public/**'
+      - 'src/**'
+      # trigger on package*.json since dependencies changed
+      - package.json
+      - package-lock.json
+
+jobs:
+  continuous_integration:
+    name: Continuous integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12
+          check-latest: true
+      - name: Install dependencies
+        run: npm install
+      - name: Check linting and formating rules
+        run: npm run check
+      - name: Run unit tests
+        run: npm test
+    timeout-minutes: 15
+  continuous_deployment:
+    name: Continuous deployment
+    needs: Continuous integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12
+          check-latest: true
+      - name: Install dependencies
+        run: npm install
+      - name: Configure git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Deploy to GitHub Pages
+        run: npm run deploy
+    timeout-minutes: 30
