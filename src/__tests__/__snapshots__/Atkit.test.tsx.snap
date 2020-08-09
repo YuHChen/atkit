@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Atkit renders as expected 1`] = `
+<div
+  className="atkit"
+>
+  <nav
+    className="navbar navbar-expand-sm navbar-dark bg-dark sticky-top"
+  >
+    <a
+      className="active navbar-brand"
+      href="#/"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      <img
+        alt="atkit logo"
+        className="d-inline-block align-top"
+        height="30"
+        src="logo.png"
+        width="30"
+      />
+    </a>
+    <button
+      aria-controls="responsive-navbar-nav"
+      aria-label="Toggle navigation"
+      className="navbar-toggler collapsed"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="navbar-toggler-icon"
+      />
+    </button>
+    <div
+      aria-expanded={null}
+      className="navbar-collapse collapse"
+      id="responsive-navbar-nav"
+    >
+      <div
+        className="navbar-nav nav-pills"
+        onKeyDown={[Function]}
+      >
+        <a
+          className="nav-link"
+          data-rb-event-key="#/cards"
+          href="#/cards"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+        >
+          Cards
+        </a>
+        <a
+          className="nav-link"
+          data-rb-event-key="#/combos"
+          href="#/combos"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+        >
+          Combos
+        </a>
+        <a
+          className="nav-link"
+          data-rb-event-key="#/combomap"
+          href="#/combomap"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+        >
+          Combo Map
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div
+    className="container"
+  >
+    <div>
+      <div
+        className="mt-3 jumbotron"
+      >
+        <h1>
+          Welcome to atkit!
+        </h1>
+        <p>
+          atkit is a toolkit for
+           
+          <a
+            href="http://www.animationthrowdowngame.com"
+          >
+            Animation Throwdown: The Quest for Cards
+          </a>
+           
+          game.
+        </p>
+      </div>
+      <div
+        className="fade alert alert-info show"
+        role="alert"
+      >
+        <div
+          className="alert-heading h4"
+        >
+          Pardon the mess
+        </div>
+        <p
+          className="mb-0"
+        >
+          This 
+          website
+           is still a work in progress.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

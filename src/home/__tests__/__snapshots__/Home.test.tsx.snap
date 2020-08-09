@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home renders as expected 1`] = `
+<div>
+  <div
+    className="mt-3 jumbotron"
+  >
+    <h1>
+      Welcome to atkit!
+    </h1>
+    <p>
+      atkit is a toolkit for
+       
+      <a
+        href="http://www.animationthrowdowngame.com"
+      >
+        Animation Throwdown: The Quest for Cards
+      </a>
+       
+      game.
+    </p>
+  </div>
+  <div
+    className="fade alert alert-info show"
+    role="alert"
+  >
+    <div
+      className="alert-heading h4"
+    >
+      Pardon the mess
+    </div>
+    <p
+      className="mb-0"
+    >
+      This 
+      website
+       is still a work in progress.
+    </p>
+  </div>
+</div>
+`;

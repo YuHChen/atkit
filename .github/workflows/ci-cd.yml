@@ -35,10 +35,10 @@ jobs:
           check-latest: true
       - name: Install dependencies
         run: npm install
-      - name: Check linting and formating rules
-        run: npm run check
-      - name: Run unit tests
-        run: npm test
+      - name: Check style rules
+        run: npm run style
+      - name: Run unit tests and generate coverage report
+        run: npm run test:coverage
     timeout-minutes: 15
   continuous_deployment:
     name: Continuous deployment

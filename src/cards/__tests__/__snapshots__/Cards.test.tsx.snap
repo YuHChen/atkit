@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cards renders as expected 1`] = `
+<div
+  className="fade mt-3 alert alert-info show"
+  role="alert"
+>
+  <div
+    className="alert-heading h4"
+  >
+    Pardon the mess
+  </div>
+  <p
+    className="mb-0"
+  >
+    This 
+    cards page
+     is still a work in progress.
+  </p>
+</div>
+`;
