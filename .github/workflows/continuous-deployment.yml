@@ -1,0 +1,23 @@
+name: Continuous deployment
+on:
+  workflow_run:
+    workflows:
+      - Continuous integration
+    branches:
+      - master
+    types:
+      - completed
+
+jobs:
+  continuous_deployment:
+    name: Continuous deployment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          check-latest: true
+      - run: npm install
+      - run: npm run deploy
+    timeout-minutes: 30

@@ -1,0 +1,29 @@
+name: Continuous integration
+on:
+  push:
+    branches:
+      - master
+    paths:
+      # trigger on .github since workflows changed
+      - '.github/**'
+      - 'public/**'
+      - 'src/**'
+      # trigger on package*.json since dependencies changed
+      - package.json
+      - package-lock.json
+
+jobs:
+  continuous_integration:
+    name: Continuous integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          check-latest: true
+      - run: npm install
+      - run: npm test
+      - run: npm run check
+      - run: npm run build
+    timeout-minutes: 30
