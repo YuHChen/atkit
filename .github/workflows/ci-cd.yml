@@ -57,9 +57,12 @@ jobs:
         env:
           USER_NAME: github-actions
           USER_EMAIL: github-actions@users.noreply.github.com
+          ORIGIN: https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
         run: |
           git config user.name $USER_NAME
           git config user.email $USER_EMAIL
-          git config --list
+          git remote -v
+          git remote set-url origin $ORIGIN
+          git config -v
           NODE_DEBUG=gh-pages npm run deploy
     timeout-minutes: 30
