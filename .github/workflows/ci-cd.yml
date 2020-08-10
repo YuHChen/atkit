@@ -53,7 +53,7 @@ jobs:
           check-latest: true
       - name: Install dependencies
         run: npm install
-      - name: Deploy to GitHub Pages
+      - name: Configure git
         env:
           USER_NAME: github-actions
           USER_EMAIL: github-actions@users.noreply.github.com
@@ -63,6 +63,9 @@ jobs:
           git config user.email $USER_EMAIL
           git remote -v
           git remote set-url origin $ORIGIN
+          git remote -v
+      - name: Deploy to GitHub Pages
+        run: |
           git remote -v
           NODE_DEBUG=gh-pages npm run deploy
     timeout-minutes: 30
