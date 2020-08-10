@@ -61,5 +61,5 @@ jobs:
           git config user.name $USER_NAME
           git config user.email $USER_EMAIL
           git config --list
-          npm run deploy
+          NODE_DEBUG=gh-pages npm run deploy
     timeout-minutes: 30
