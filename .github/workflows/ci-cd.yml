@@ -57,7 +57,7 @@ jobs:
         env:
           USER_NAME: github-actions
           USER_EMAIL: github-actions@users.noreply.github.com
-          ORIGIN: https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          ORIGIN: https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
         run: |
           git config user.name $USER_NAME
           git config user.email $USER_EMAIL
