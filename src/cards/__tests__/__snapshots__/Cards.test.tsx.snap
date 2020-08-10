@@ -2,16 +2,16 @@
 
 exports[`Cards renders as expected 1`] = `
 <div
-  className="fade mt-3 alert alert-info show"
+  class="fade mt-3 alert alert-info show"
   role="alert"
 >
   <div
-    className="alert-heading h4"
+    class="alert-heading h4"
   >
     Pardon the mess
   </div>
   <p
-    className="mb-0"
+    class="mb-0"
   >
     This 
     cards page

@@ -1,12 +1,12 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import { render } from "@testing-library/react";
 
 import Atkit from "../Atkit";
 
 describe("Atkit", () => {
   test("renders as expected", () => {
-    const tree = renderer.create(<Atkit />).toJSON();
+    const { container } = render(<Atkit />);
 
-    expect(tree).toMatchSnapshot();
+    expect(container.firstChild).toMatchSnapshot();
   });
 });

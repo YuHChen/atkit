@@ -1,12 +1,12 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import { render } from "@testing-library/react";
 
 import Combos from "../Combos";
 
 describe("Combos", () => {
   test("renders as expected", () => {
-    const tree = renderer.create(<Combos />).toJSON();
+    const { container } = render(<Combos />);
 
-    expect(tree).toMatchSnapshot();
+    expect(container.firstChild).toMatchSnapshot();
   });
 });

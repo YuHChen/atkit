@@ -1,12 +1,12 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import { render } from "@testing-library/react";
 
 import Cards from "../Cards";
 
 describe("Cards", () => {
   test("renders as expected", () => {
-    const tree = renderer.create(<Cards />).toJSON();
+    const { container } = render(<Cards />);
 
-    expect(tree).toMatchSnapshot();
+    expect(container.firstChild).toMatchSnapshot();
   });
 });

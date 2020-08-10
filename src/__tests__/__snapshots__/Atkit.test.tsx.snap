@@ -2,20 +2,18 @@
 
 exports[`Atkit renders as expected 1`] = `
 <div
-  className="atkit"
+  class="atkit"
 >
   <nav
-    className="navbar navbar-expand-sm navbar-dark bg-dark sticky-top"
+    class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top"
   >
     <a
-      className="active navbar-brand"
+      class="active navbar-brand"
       href="#/"
-      onClick={[Function]}
-      style={Object {}}
     >
       <img
         alt="atkit logo"
-        className="d-inline-block align-top"
+        class="d-inline-block align-top"
         height="30"
         src="logo.png"
         width="30"
@@ -24,47 +22,38 @@ exports[`Atkit renders as expected 1`] = `
     <button
       aria-controls="responsive-navbar-nav"
       aria-label="Toggle navigation"
-      className="navbar-toggler collapsed"
-      onClick={[Function]}
+      class="navbar-toggler collapsed"
       type="button"
     >
       <span
-        className="navbar-toggler-icon"
+        class="navbar-toggler-icon"
       />
     </button>
     <div
-      aria-expanded={null}
-      className="navbar-collapse collapse"
+      class="navbar-collapse collapse"
       id="responsive-navbar-nav"
     >
       <div
-        className="navbar-nav nav-pills"
-        onKeyDown={[Function]}
+        class="navbar-nav nav-pills"
       >
         <a
-          className="nav-link"
+          class="nav-link"
           data-rb-event-key="#/cards"
           href="#/cards"
-          onClick={[Function]}
-          onKeyDown={[Function]}
         >
           Cards
         </a>
         <a
-          className="nav-link"
+          class="nav-link"
           data-rb-event-key="#/combos"
           href="#/combos"
-          onClick={[Function]}
-          onKeyDown={[Function]}
         >
           Combos
         </a>
         <a
-          className="nav-link"
+          class="nav-link"
           data-rb-event-key="#/combomap"
           href="#/combomap"
-          onClick={[Function]}
-          onKeyDown={[Function]}
         >
           Combo Map
         </a>
@@ -72,11 +61,11 @@ exports[`Atkit renders as expected 1`] = `
     </div>
   </nav>
   <div
-    className="container"
+    class="container"
   >
     <div>
       <div
-        className="mt-3 jumbotron"
+        class="mt-3 jumbotron"
       >
         <h1>
           Welcome to atkit!
@@ -94,16 +83,16 @@ exports[`Atkit renders as expected 1`] = `
         </p>
       </div>
       <div
-        className="fade alert alert-info show"
+        class="fade alert alert-info show"
         role="alert"
       >
         <div
-          className="alert-heading h4"
+          class="alert-heading h4"
         >
           Pardon the mess
         </div>
         <p
-          className="mb-0"
+          class="mb-0"
         >
           This 
           website

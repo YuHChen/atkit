@@ -9,6 +9,7 @@ import ComboMap from "./deck/ComboMap";
 import Home from "./home/Home";
 
 import logo from "./assets/logo.png";
+import NoMatch from "./NoMatch";
 
 const Logo = () => (
   <LinkContainer to="/">
@@ -64,6 +65,9 @@ const Atkit = () => (
           </Route>
           <Route path="/combomap">
             <ComboMap />
+          </Route>
+          <Route path="*">
+            <NoMatch className="mt-3" />
           </Route>
         </Switch>
       </Container>

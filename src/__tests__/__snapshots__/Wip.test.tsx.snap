@@ -2,16 +2,16 @@
 
 exports[`Wip renders as expected given full props 1`] = `
 <div
-  className="fade className alert alert-info show"
+  class="fade className alert alert-info show"
   role="alert"
 >
   <div
-    className="alert-heading h4"
+    class="alert-heading h4"
   >
     Pardon the mess
   </div>
   <p
-    className="mb-0"
+    class="mb-0"
   >
     This 
     pageName
@@ -22,16 +22,16 @@ exports[`Wip renders as expected given full props 1`] = `
 
 exports[`Wip renders as expected given minimal props 1`] = `
 <div
-  className="fade alert alert-info show"
+  class="fade alert alert-info show"
   role="alert"
 >
   <div
-    className="alert-heading h4"
+    class="alert-heading h4"
   >
     Pardon the mess
   </div>
   <p
-    className="mb-0"
+    class="mb-0"
   >
     This 
     pageName
