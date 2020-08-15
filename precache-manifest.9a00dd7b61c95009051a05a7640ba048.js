@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "426b37f96e98807167325e250a8d6588",
+    "revision": "7f9b2299f3c13cccf54fd634a43bc78f",
     "url": "/atkit/index.html"
   },
   {
-    "revision": "fde5a0ef2906e6e8f6b7",
-    "url": "/atkit/static/css/main.ddc889cf.chunk.css"
+    "revision": "c7a1f7033433dc001f93",
+    "url": "/atkit/static/css/main.34a26722.chunk.css"
   },
   {
     "revision": "93e0c0e36282cd26c10f",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/atkit/static/js/2.d6290cc4.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "fde5a0ef2906e6e8f6b7",
+    "revision": "c7a1f7033433dc001f93",
     "url": "/atkit/static/js/main.a994fbd1.chunk.js"
   },
   {
