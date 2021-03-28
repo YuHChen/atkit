@@ -1,18 +1,17 @@
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 
 import NoMatch from "../NoMatch";
 
-jest.mock("react-router-dom", () => ({
-  useLocation: jest.fn().mockReturnValue({
-    pathname: "pathname",
-  }),
-}));
-
 describe("NoMatch", () => {
   test("renders as expected given minimal props", () => {
-    render(<NoMatch />);
+    render(
+      <MemoryRouter initialEntries={["/pathname"]}>
+        <NoMatch />
+      </MemoryRouter>
+    );
     const alert = screen.getByRole("alert");
 
     expect(alert).toBeInTheDocument();
@@ -20,7 +19,11 @@ describe("NoMatch", () => {
   });
 
   test("renders as expected given full props", () => {
-    render(<NoMatch className="className" />);
+    render(
+      <MemoryRouter initialEntries={["/pathname"]}>
+        <NoMatch className="className" />
+      </MemoryRouter>
+    );
     const alert = screen.getByRole("alert");
 
     expect(alert).toBeInTheDocument();
