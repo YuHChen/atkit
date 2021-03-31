@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/atkit/static/css/main.5a46aef4.chunk.css",
-    "main.js": "/atkit/static/js/main.827ad08e.chunk.js",
-    "main.js.map": "/atkit/static/js/main.827ad08e.chunk.js.map",
+    "main.js": "/atkit/static/js/main.bc42b523.chunk.js",
+    "main.js.map": "/atkit/static/js/main.bc42b523.chunk.js.map",
     "runtime-main.js": "/atkit/static/js/runtime-main.c9aead0e.js",
     "runtime-main.js.map": "/atkit/static/js/runtime-main.c9aead0e.js.map",
-    "static/js/2.de671b76.chunk.js": "/atkit/static/js/2.de671b76.chunk.js",
-    "static/js/2.de671b76.chunk.js.map": "/atkit/static/js/2.de671b76.chunk.js.map",
+    "static/js/2.23ba451e.chunk.js": "/atkit/static/js/2.23ba451e.chunk.js",
+    "static/js/2.23ba451e.chunk.js.map": "/atkit/static/js/2.23ba451e.chunk.js.map",
     "index.html": "/atkit/index.html",
     "static/css/main.5a46aef4.chunk.css.map": "/atkit/static/css/main.5a46aef4.chunk.css.map",
-    "static/js/2.de671b76.chunk.js.LICENSE.txt": "/atkit/static/js/2.de671b76.chunk.js.LICENSE.txt",
+    "static/js/2.23ba451e.chunk.js.LICENSE.txt": "/atkit/static/js/2.23ba451e.chunk.js.LICENSE.txt",
     "static/media/logo.b8be30a3.png": "/atkit/static/media/logo.b8be30a3.png"
   },
   "entrypoints": [
     "static/js/runtime-main.c9aead0e.js",
-    "static/js/2.de671b76.chunk.js",
+    "static/js/2.23ba451e.chunk.js",
     "static/css/main.5a46aef4.chunk.css",
-    "static/js/main.827ad08e.chunk.js"
+    "static/js/main.bc42b523.chunk.js"
   ]
 }
