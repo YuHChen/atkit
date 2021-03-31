@@ -1,22 +1,22 @@
 export type ConvertedText = string | undefined;
 export type ConvertedJson = { [key: string]: any };
 export type ConvertedAttributesJson = { [key: string]: string | null };
-export type ConversionResult = ConvertedText | ConvertedJson | null;
+export type ConversionResult = ConvertedText | ConvertedJson;
 
 const xmlToJson = (xml: Node): ConversionResult => {
   switch (xml.nodeType) {
     case Node.DOCUMENT_NODE:
-      return documentToJson(xml as Document);
+      return convertDocument(xml as Document);
     case Node.TEXT_NODE:
-      return textToJson(xml as Text);
+      return convertText(xml as Text);
     case Node.ELEMENT_NODE:
-      return elementToJson(xml as Element);
+      return convertElement(xml as Element);
     default:
       return undefined;
   }
 };
 
-const textToJson = (text: Text): ConvertedText => {
+const convertText = (text: Text): ConvertedText => {
   const trimmedText = text.nodeValue?.trim();
 
   return undefined === trimmedText || 0 === trimmedText.length
@@ -24,20 +24,20 @@ const textToJson = (text: Text): ConvertedText => {
     : trimmedText;
 };
 
-const documentToJson = (doc: Document): ConversionResult => {
+const convertDocument = (doc: Document): ConversionResult => {
   const docElement = doc.documentElement;
 
   return null === docElement || undefined === docElement
-    ? docElement
-    : elementToJson(docElement);
+    ? {}
+    : convertElement(docElement);
 };
 
-const elementToJson = (element: Element): ConvertedText | ConvertedJson => {
+const convertElement = (element: Element): ConversionResult => {
   const json: ConvertedJson = {};
 
   // 1. convert attributes
   if (element.hasAttributes()) {
-    json["__attr__"] = attributesToJson(element.attributes);
+    json["__attr__"] = convertAttributes(element.attributes);
   }
 
   // 2. convert child nodes
@@ -49,15 +49,15 @@ const elementToJson = (element: Element): ConvertedText | ConvertedJson => {
     // normalized element looks like `<data>text</data>`
     // if root, then key is ignored
     // if not root, then key is already handled upstream, so return text
-    return textToJson(children.item(0) as Text);
+    return convertText(children.item(0) as Text);
   } else {
-    Object.assign(json, childrenToJson(children));
+    Object.assign(json, convertChildren(children));
   }
 
   return json;
 };
 
-const attributesToJson = (
+const convertAttributes = (
   attributes: NamedNodeMap
 ): ConvertedAttributesJson => {
   const attributesJson: ConvertedAttributesJson = {};
@@ -77,7 +77,7 @@ const attributesToJson = (
 const childrenIsOnlySingleText = (children: NodeListOf<ChildNode>): boolean =>
   1 === children.length && Node.TEXT_NODE === children.item(0).nodeType;
 
-const childrenToJson = (children: NodeListOf<ChildNode>): ConvertedJson => {
+const convertChildren = (children: NodeListOf<ChildNode>): ConvertedJson => {
   const json: ConvertedJson = {};
 
   for (let i = 0; i < children.length; i++) {

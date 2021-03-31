@@ -38,11 +38,11 @@ describe("xmlToJson", () => {
     return { expects };
   };
 
-  describe("given empty document node, then returns null", () => {
+  describe("given empty document node, then returns empty json", () => {
     test("document node with null qualified name", () =>
-      documentTestHelper(null).expects(null));
+      documentTestHelper(null).expects({}));
     test("document node with empty qualified name", () =>
-      documentTestHelper("").expects(null));
+      documentTestHelper("").expects({}));
   });
 
   test("given document node, then returns json", () =>
