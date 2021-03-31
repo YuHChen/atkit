@@ -54,7 +54,8 @@
       "enzyme-to-json/serializer"
     ],
     "coveragePathIgnorePatterns": [
-      "<rootDir>/src/index.tsx"
+      "<rootDir>/src/index.tsx",
+      "<rootDir>/src/devtools"
     ],
     "coverageThreshold": {
       "global": {

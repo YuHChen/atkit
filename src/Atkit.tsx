@@ -3,13 +3,18 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
+import logo from "./assets/logo.png";
+
 import Cards from "./cards/Cards";
 import Combos from "./combos/Combos";
 import ComboMap from "./deck/ComboMap";
 import Home from "./home/Home";
-
-import logo from "./assets/logo.png";
 import NoMatch from "./NoMatch";
+
+import { CardsDataDumper, CombosDataDumper } from "./devtools/dataDumpers";
+
+// see https://create-react-app.dev/docs/adding-custom-environment-variables/
+const IS_DEVO = "development" === process.env.NODE_ENV;
 
 const Logo = () => (
   <LinkContainer to="/">
@@ -42,6 +47,16 @@ const NavBar = () => (
         <LinkContainer to="/combomap">
           <Nav.Link>Combo Map</Nav.Link>
         </LinkContainer>
+        {IS_DEVO && (
+          <React.Fragment>
+            <LinkContainer to="/dumper/cards">
+              <Nav.Link>Cards Data Dumper</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/dumper/combos">
+              <Nav.Link>Combos Data Dumper</Nav.Link>
+            </LinkContainer>
+          </React.Fragment>
+        )}
       </Nav>
     </Navbar.Collapse>
   </Navbar>
@@ -66,6 +81,16 @@ const Atkit = () => (
           <Route path="/combomap">
             <ComboMap />
           </Route>
+          {IS_DEVO && (
+            <React.Fragment>
+              <Route path="/dumper/cards">
+                <CardsDataDumper />
+              </Route>
+              <Route path="/dumper/combos">
+                <CombosDataDumper />
+              </Route>
+            </React.Fragment>
+          )}
           <Route path="*">
             <NoMatch className="mt-3" />
           </Route>
