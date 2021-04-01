@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/atkit/static/css/main.5a46aef4.chunk.css",
-    "main.js": "/atkit/static/js/main.bc42b523.chunk.js",
-    "main.js.map": "/atkit/static/js/main.bc42b523.chunk.js.map",
+    "main.js": "/atkit/static/js/main.02386e1b.chunk.js",
+    "main.js.map": "/atkit/static/js/main.02386e1b.chunk.js.map",
     "runtime-main.js": "/atkit/static/js/runtime-main.c9aead0e.js",
     "runtime-main.js.map": "/atkit/static/js/runtime-main.c9aead0e.js.map",
     "static/js/2.23ba451e.chunk.js": "/atkit/static/js/2.23ba451e.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.c9aead0e.js",
     "static/js/2.23ba451e.chunk.js",
     "static/css/main.5a46aef4.chunk.css",
-    "static/js/main.bc42b523.chunk.js"
+    "static/js/main.02386e1b.chunk.js"
   ]
 }
