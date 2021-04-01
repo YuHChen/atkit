@@ -3,7 +3,7 @@
 exports[`Home renders as expected 1`] = `
 <div>
   <div
-    class="mt-3 jumbotron"
+    class="jumbotron"
   >
     <h1>
       Welcome to atkit!

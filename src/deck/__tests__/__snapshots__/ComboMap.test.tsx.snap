@@ -2,7 +2,7 @@
 
 exports[`ComboMap renders as expected 1`] = `
 <div
-  class="fade mt-3 alert alert-info show"
+  class="fade alert alert-info show"
   role="alert"
 >
   <div
