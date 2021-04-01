@@ -5,7 +5,7 @@ import Wip from "../Wip";
 
 const Home = () => (
   <div>
-    <Jumbotron className="mt-3">
+    <Jumbotron>
       <h1>Welcome to atkit!</h1>
       <p>
         atkit is a toolkit for{" "}

@@ -66,7 +66,7 @@ const Atkit = () => (
   <Router>
     <div className="atkit">
       <NavBar />
-
+      <div className="mt-3" />
       <Container>
         <Switch>
           <Route exact path="/">
@@ -92,7 +92,7 @@ const Atkit = () => (
             </React.Fragment>
           )}
           <Route path="*">
-            <NoMatch className="mt-3" />
+            <NoMatch />
           </Route>
         </Switch>
       </Container>
