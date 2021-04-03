@@ -13,8 +13,9 @@ import NoMatch from "./NoMatch";
 
 import { CardsDataDumper, CombosDataDumper } from "./devtools/dataDumpers";
 
-// see https://create-react-app.dev/docs/adding-custom-environment-variables/
-const IS_DEVO = "development" === process.env.NODE_ENV;
+interface DevoAwareProps {
+  isDevo: boolean;
+}
 
 const Logo = () => (
   <LinkContainer to="/">
@@ -30,7 +31,7 @@ const Logo = () => (
   </LinkContainer>
 );
 
-const NavBar = () => (
+const NavBar = (props: DevoAwareProps) => (
   <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" sticky="top">
     <Logo />
 
@@ -47,25 +48,25 @@ const NavBar = () => (
         <LinkContainer to="/combomap">
           <Nav.Link>Combo Map</Nav.Link>
         </LinkContainer>
-        {IS_DEVO && (
-          <React.Fragment>
-            <LinkContainer to="/dumper/cards">
-              <Nav.Link>Cards Data Dumper</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/dumper/combos">
-              <Nav.Link>Combos Data Dumper</Nav.Link>
-            </LinkContainer>
-          </React.Fragment>
+        {props.isDevo && (
+          <LinkContainer to="/dumper/cards">
+            <Nav.Link>Cards Data Dumper</Nav.Link>
+          </LinkContainer>
+        )}
+        {props.isDevo && (
+          <LinkContainer to="/dumper/combos">
+            <Nav.Link>Combos Data Dumper</Nav.Link>
+          </LinkContainer>
         )}
       </Nav>
     </Navbar.Collapse>
   </Navbar>
 );
 
-const Atkit = () => (
+const Atkit = (props: DevoAwareProps) => (
   <Router>
     <div className="atkit">
-      <NavBar />
+      <NavBar isDevo={props.isDevo} />
       <div className="mt-3" />
       <Container>
         <Switch>
@@ -81,15 +82,15 @@ const Atkit = () => (
           <Route path="/combomap">
             <ComboMap />
           </Route>
-          {IS_DEVO && (
-            <React.Fragment>
-              <Route path="/dumper/cards">
-                <CardsDataDumper />
-              </Route>
-              <Route path="/dumper/combos">
-                <CombosDataDumper />
-              </Route>
-            </React.Fragment>
+          {props.isDevo && (
+            <Route path="/dumper/cards">
+              <CardsDataDumper />
+            </Route>
+          )}
+          {props.isDevo && (
+            <Route path="/dumper/combos">
+              <CombosDataDumper />
+            </Route>
           )}
           <Route path="*">
             <NoMatch />
