@@ -10,7 +10,10 @@ interface Cache {
    *
    * @returns previous value if present, otherwise returns `undefined`.
    */
-  put: (url: string, result: ApiResult) => Promise<ApiResult>;
+  put: (
+    url: string,
+    result: ApiResult | Promise<ApiResult>
+  ) => Promise<ApiResult>;
 
   /**
    * Removes all entries from cache.

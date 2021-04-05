@@ -34,7 +34,7 @@ each`
 
   describe("contains", () => {
     test.concurrent(
-      "given cache does not contain entry, returns false",
+      "given cache does not contain entry, then returns false",
       async () => {
         const cache = await setUpCache();
         const actual = await cache.contains("test");
@@ -42,16 +42,19 @@ each`
       }
     );
 
-    test.concurrent("given cache contains entry, return true", async () => {
-      const cache = await setUpCache();
-      const actual = await cache.contains("json data");
-      expect(actual).toBeTruthy();
-    });
+    test.concurrent(
+      "given cache contains entry, then returns true",
+      async () => {
+        const cache = await setUpCache();
+        const actual = await cache.contains("json data");
+        expect(actual).toBeTruthy();
+      }
+    );
   });
 
   describe("get", () => {
     test.concurrent(
-      "given cache does not contain entry, returns Promise resolved with undefined",
+      "given cache does not contain entry, then returns Promise resolved with undefined",
       async () => {
         const cache = await setUpCache();
         const actual = await cache.get(NO_ENTRY_KEY);
@@ -60,7 +63,7 @@ each`
     );
 
     test.concurrent(
-      "given cache contains entry, returns Promise resolved with value",
+      "given cache contains entry, then returns Promise resolved with value",
       async () => {
         const cache = await setUpCache();
         const actual = await cache.get(STRING_KEY);
@@ -71,7 +74,7 @@ each`
 
   describe("put", () => {
     test.concurrent(
-      "given cache does not contain entry, returns Promise resolved with undefined",
+      "given cache does not contain entry, then returns Promise resolved with undefined",
       async () => {
         const cache = await setUpCache();
         const actual = await cache.put("new test data", {
@@ -82,11 +85,32 @@ each`
     );
 
     test.concurrent(
-      "given cache contains entry, returns Promise resolved with old value",
+      "given cache contains entry, then returns Promise resolved with old value",
       async () => {
         const cache = await setUpCache();
         const actual = await cache.put(STRING_KEY, "should be overwritten");
         expect(actual).toEqual(STRING_DATA);
+      }
+    );
+
+    test.concurrent(
+      "given Promise value, then puts entry correctly",
+      async () => {
+        const cache = await setUpCache();
+
+        const noPreviousValue = await cache.put(
+          "new test data",
+          Promise.resolve({
+            test: "new test data",
+          })
+        );
+        expect(noPreviousValue).toBeUndefined();
+
+        const hasPreviousValue = await cache.put(
+          STRING_KEY,
+          Promise.resolve("should be overwritten")
+        );
+        expect(hasPreviousValue).toEqual(STRING_DATA);
       }
     );
   });
@@ -106,17 +130,20 @@ each`
   };
 
   describe("clear", () => {
-    test.concurrent("given empty cache, returns 0", async () => {
+    test.concurrent("given empty cache, then returns 0", async () => {
       const cache = new ctor();
       const actual = await cache.clear();
       expect(actual).toEqual(0);
     });
 
-    test.concurrent("given non-empty cache, returns old size", async () => {
-      const cache = await setUpCache();
-      const actual = await cache.clear();
-      expect(actual).toEqual(2);
-    });
+    test.concurrent(
+      "given non-empty cache, then returns old size",
+      async () => {
+        const cache = await setUpCache();
+        const actual = await cache.clear();
+        expect(actual).toEqual(2);
+      }
+    );
 
     test.concurrent(
       "removes all entries",

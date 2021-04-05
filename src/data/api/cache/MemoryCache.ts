@@ -17,10 +17,12 @@ class MemoryCache implements Cache {
     return Promise.resolve(this.cache.get(url));
   }
 
-  put(url: string, result: ApiResult) {
+  async put(url: string, result: ApiResult | Promise<ApiResult>) {
+    const resultPromise = Promise.resolve(result);
+
     const oldValue = this.get(url);
 
-    this.cache.set(url, result);
+    this.cache.set(url, await resultPromise);
 
     return oldValue;
   }
