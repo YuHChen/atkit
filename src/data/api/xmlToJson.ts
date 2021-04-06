@@ -63,11 +63,10 @@ const convertAttributes = (
   const attributesJson: ConvertedAttributesJson = {};
 
   for (let i = 0; i < attributes.length; i++) {
-    // note: using `[i]` instead of `.item(i)`.
-    // since `item` has type `Attr | null`, typescript will force us to add a null check,
-    // but we know for a fact that `item` cannot return `null` since we are looping over
-    // `attributes`'s length.
-    const attribute = attributes[i];
+    // `item` has return type `Attr | null`, but we know for a fact
+    // that `item` cannot return `null` since we are looping over
+    // `attributes`'s length., so use `item(i)!`
+    const attribute = attributes.item(i)!;
     attributesJson[attribute.nodeName] = attribute.nodeValue;
   }
 
