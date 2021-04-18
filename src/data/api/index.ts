@@ -1,3 +1,5 @@
+import MemoryCache from "./cache/MemoryCache";
+import withCache from "./cache/withCache";
 import type { AnimationThrowdownApi, ApiResult } from "./types";
 import xmlToJson from "./xmlToJson";
 
@@ -21,7 +23,8 @@ class AnimationThrowdown implements AnimationThrowdownApi {
 }
 
 const INSTANCE = new AnimationThrowdown();
+const CACHED_INSTANCE = withCache(INSTANCE, MemoryCache);
 
 export default INSTANCE;
 
-export { ENDPOINTS };
+export { ENDPOINTS, CACHED_INSTANCE as CachedAnimationThrowdownApi };
