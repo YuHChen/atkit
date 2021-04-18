@@ -1,6 +1,7 @@
 import React from "react";
 
 import CodeBlock from "./CodeBlock";
+import { prettyPrint } from "./jsonUtils";
 import type { Json } from "./types";
 
 interface JsonViewProps {
@@ -8,10 +9,7 @@ interface JsonViewProps {
 }
 
 const JsonView: React.FC<JsonViewProps> = ({ json }: JsonViewProps) => (
-  <CodeBlock
-    language="json"
-    code={"string" === typeof json ? json : JSON.stringify(json, null, 2)}
-  />
+  <CodeBlock language="json" code={prettyPrint(json)} />
 );
 
 export default JsonView;
