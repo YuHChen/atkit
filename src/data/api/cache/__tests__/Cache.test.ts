@@ -1,6 +1,6 @@
 import each from "jest-each";
 
-import { Cache, CacheCtor } from "../types";
+import type { Cache, CacheCtor } from "../types";
 import MemoryCache from "../MemoryCache";
 
 const NO_ENTRY_KEY = "no entry";

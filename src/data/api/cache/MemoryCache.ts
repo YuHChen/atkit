@@ -1,6 +1,6 @@
-import { ApiResult } from "../types";
+import type { ApiResult } from "../types";
 
-import { Cache } from "./types";
+import type { Cache } from "./types";
 
 class MemoryCache implements Cache {
   private cache: Map<string, ApiResult>;

@@ -1,4 +1,4 @@
-import { AnimationThrowdownApi, ApiResult } from "./types";
+import type { AnimationThrowdownApi, ApiResult } from "./types";
 import xmlToJson from "./xmlToJson";
 
 const ENDPOINTS = {

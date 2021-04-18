@@ -1,4 +1,4 @@
-import { ApiResult } from "../types";
+import type { ApiResult } from "../types";
 
 interface Cache {
   contains: (url: string) => Promise<boolean>;

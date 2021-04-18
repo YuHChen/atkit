@@ -2,7 +2,7 @@ import { rest } from "msw";
 
 import AnimationThrowdown from "../index";
 import { server } from "../mocks/server";
-import { Api } from "../types";
+import type { Api } from "../types";
 
 describe("Animation Throwdown APIs", () => {
   beforeAll(() => server.listen());
