@@ -4,7 +4,7 @@ import type { AnimationThrowdownApi, ApiResult } from "./types";
 import xmlToJson from "./xmlToJson";
 
 const ENDPOINTS = {
-  CARDS: "http://cb-live.synapse-games.com/assets/cards.xml",
+  CARDS: "https://cb-live.synapse-games.com/assets/cards.xml",
 };
 
 class AnimationThrowdown implements AnimationThrowdownApi {
