@@ -22,9 +22,12 @@ class MemoryCache implements Cache {
 
     const oldValue = this.get(url);
 
-    this.cache.set(url, await resultPromise);
-
-    return oldValue;
+    try {
+      this.cache.set(url, await resultPromise);
+      return oldValue;
+    } catch (error) {
+      return Promise.resolve(undefined);
+    }
   }
 
   clear() {

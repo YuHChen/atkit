@@ -94,6 +94,18 @@ each`
     );
 
     test.concurrent(
+      "given rejected Promise, then returns Promise resolved with undefined",
+      async () => {
+        const cache = await setUpCache();
+        const actual = await cache.put(
+          "new test data",
+          Promise.reject(new Error("test error"))
+        );
+        expect(actual).toBeUndefined();
+      }
+    );
+
+    test.concurrent(
       "given Promise value, then puts entry correctly",
       async () => {
         const cache = await setUpCache();

@@ -8,7 +8,8 @@ interface Cache {
   /**
    * Associates `url` with `result`, overwriting the previous result if any.
    *
-   * @returns previous value if present, otherwise returns `undefined`.
+   * @returns `undefined` if Promise is rejected. otherwise,
+   * returns previous value if present and `undefined` if not present.
    */
   put: (
     url: string,
