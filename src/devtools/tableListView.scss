@@ -1,0 +1,26 @@
+$header-cell-color: rgb(122, 128, 133);
+
+.atkit-table-view {
+  margin-bottom: 1rem;
+}
+
+.atkit-table {
+  max-height: 25rem;
+
+  overflow: auto;
+}
+
+.atkit-table table {
+  margin-bottom: 0;
+}
+
+table thead tr .atkit-th {
+  background-color: $header-cell-color;
+  border-color: $header-cell-color;
+}
+
+table thead tr .atkit-th-sticky {
+  position: sticky;
+  top: 0;
+  border: 0;
+}

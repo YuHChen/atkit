@@ -3,6 +3,9 @@ import { Json, JsonArray, JsonObject } from "./types";
 const prettyPrint = (json: Json): string =>
   "string" === typeof json ? json : JSON.stringify(json, null, 2);
 
+const getDefinedKeys = (obj: JsonObject): string[] =>
+  Object.keys(obj).filter((key) => undefined !== obj[key]);
+
 interface Handlers {
   nullHandler: () => void;
   arrayHandler: (array: JsonArray) => void;
@@ -24,4 +27,4 @@ const handleJson = (json: Json, handlers: Handlers) => {
 
 export type { Handlers };
 
-export { handleJson, prettyPrint };
+export { getDefinedKeys, handleJson, prettyPrint };
