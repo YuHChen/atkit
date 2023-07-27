@@ -65,39 +65,41 @@ const NavBar = (props: DevoAwareProps) => (
 
 const Atkit = (props: DevoAwareProps) => (
   <Router>
-    <div className="atkit">
-      <NavBar isDevo={props.isDevo} />
-      <div className="mt-3" />
-      <Container>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/cards">
-            <Cards />
-          </Route>
-          <Route path="/combos">
-            <Combos />
-          </Route>
-          <Route path="/combomap">
-            <ComboMap />
-          </Route>
-          {props.isDevo && (
-            <Route path="/dumper/cards">
-              <CardsDataDumper />
+    <React.Fragment>
+      <div className="atkit">
+        <NavBar isDevo={props.isDevo} />
+        <div className="mt-3" />
+        <Container>
+          <Switch>
+            <Route exact path="/">
+              <Home />
             </Route>
-          )}
-          {props.isDevo && (
-            <Route path="/dumper/combos">
-              <CombosDataDumper />
+            <Route path="/cards">
+              <Cards />
             </Route>
-          )}
-          <Route path="*">
-            <NoMatch />
-          </Route>
-        </Switch>
-      </Container>
-    </div>
+            <Route path="/combos">
+              <Combos />
+            </Route>
+            <Route path="/combomap">
+              <ComboMap />
+            </Route>
+            {props.isDevo && (
+              <Route path="/dumper/cards">
+                <CardsDataDumper />
+              </Route>
+            )}
+            {props.isDevo && (
+              <Route path="/dumper/combos">
+                <CombosDataDumper />
+              </Route>
+            )}
+            <Route path="*">
+              <NoMatch />
+            </Route>
+          </Switch>
+        </Container>
+      </div>
+    </React.Fragment>
   </Router>
 );
 
