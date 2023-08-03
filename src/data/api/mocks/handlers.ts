@@ -150,10 +150,10 @@ const cardsRequestHandler: RestHandler = rest.get(
               </upgrade>
             </unit>
           </root>
-        `)
-      )
+        `),
+      ),
     );
-  }
+  },
 );
 
 const handlers: [RestHandler] = [cardsRequestHandler];

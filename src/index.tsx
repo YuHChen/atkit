@@ -12,5 +12,5 @@ ReactDOM.render(
   <React.StrictMode>
     <Atkit isDevo={IS_DEVO} />
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );

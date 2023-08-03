@@ -58,7 +58,7 @@ const convertElement = (element: Element): ConversionResult => {
 };
 
 const convertAttributes = (
-  attributes: NamedNodeMap
+  attributes: NamedNodeMap,
 ): ConvertedAttributesJson => {
   const attributesJson: ConvertedAttributesJson = {};
 

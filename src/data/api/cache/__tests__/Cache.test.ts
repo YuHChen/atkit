@@ -39,7 +39,7 @@ each`
         const cache = await setUpCache();
         const actual = await cache.contains("test");
         expect(actual).toBeFalsy();
-      }
+      },
     );
 
     test.concurrent(
@@ -48,7 +48,7 @@ each`
         const cache = await setUpCache();
         const actual = await cache.contains("json data");
         expect(actual).toBeTruthy();
-      }
+      },
     );
   });
 
@@ -59,7 +59,7 @@ each`
         const cache = await setUpCache();
         const actual = await cache.get(NO_ENTRY_KEY);
         expect(actual).toBeUndefined();
-      }
+      },
     );
 
     test.concurrent(
@@ -68,7 +68,7 @@ each`
         const cache = await setUpCache();
         const actual = await cache.get(STRING_KEY);
         expect(actual).toEqual(STRING_DATA);
-      }
+      },
     );
   });
 
@@ -81,7 +81,7 @@ each`
           test: "new test data",
         });
         expect(actual).toBeUndefined();
-      }
+      },
     );
 
     test.concurrent(
@@ -90,7 +90,7 @@ each`
         const cache = await setUpCache();
         const actual = await cache.put(STRING_KEY, "should be overwritten");
         expect(actual).toEqual(STRING_DATA);
-      }
+      },
     );
 
     test.concurrent(
@@ -99,10 +99,10 @@ each`
         const cache = await setUpCache();
         const actual = await cache.put(
           "new test data",
-          Promise.reject(new Error("test error"))
+          Promise.reject(new Error("test error")),
         );
         expect(actual).toBeUndefined();
-      }
+      },
     );
 
     test.concurrent(
@@ -114,32 +114,31 @@ each`
           "new test data",
           Promise.resolve({
             test: "new test data",
-          })
+          }),
         );
         expect(noPreviousValue).toBeUndefined();
 
         const hasPreviousValue = await cache.put(
           STRING_KEY,
-          Promise.resolve("should be overwritten")
+          Promise.resolve("should be overwritten"),
         );
         expect(hasPreviousValue).toEqual(STRING_DATA);
-      }
+      },
     );
   });
 
-  const testHelperRemovesAllEntries = (
-    action: (cache: Cache) => Promise<number | boolean>
-  ) => async () => {
-    const cache = await setUpCache();
+  const testHelperRemovesAllEntries =
+    (action: (cache: Cache) => Promise<number | boolean>) => async () => {
+      const cache = await setUpCache();
 
-    await action(cache);
+      await action(cache);
 
-    const stringData = await cache.get(STRING_KEY);
-    expect(stringData).toBeUndefined();
+      const stringData = await cache.get(STRING_KEY);
+      expect(stringData).toBeUndefined();
 
-    const jsonData = await cache.get(JSON_KEY);
-    expect(jsonData).toBeUndefined();
-  };
+      const jsonData = await cache.get(JSON_KEY);
+      expect(jsonData).toBeUndefined();
+    };
 
   describe("clear", () => {
     test.concurrent("given empty cache, then returns 0", async () => {
@@ -154,19 +153,19 @@ each`
         const cache = await setUpCache();
         const actual = await cache.clear();
         expect(actual).toEqual(2);
-      }
+      },
     );
 
     test.concurrent(
       "removes all entries",
-      testHelperRemovesAllEntries((cache) => cache.clear())
+      testHelperRemovesAllEntries((cache) => cache.clear()),
     );
   });
 
   describe("reset", () => {
     test.concurrent(
       "removes all entries",
-      testHelperRemovesAllEntries((cache) => cache.reset())
+      testHelperRemovesAllEntries((cache) => cache.reset()),
     );
   });
 });

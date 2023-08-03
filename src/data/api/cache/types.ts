@@ -13,7 +13,7 @@ interface Cache {
    */
   put: (
     url: string,
-    result: ApiResult | Promise<ApiResult>
+    result: ApiResult | Promise<ApiResult>,
   ) => Promise<ApiResult>;
 
   /**

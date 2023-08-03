@@ -10,7 +10,7 @@ describe("NoMatch", () => {
     render(
       <MemoryRouter initialEntries={["/pathname"]}>
         <NoMatch />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     const alert = screen.getByRole("alert");
 
@@ -22,7 +22,7 @@ describe("NoMatch", () => {
     render(
       <MemoryRouter initialEntries={["/pathname"]}>
         <NoMatch className="className" />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     const alert = screen.getByRole("alert");
 

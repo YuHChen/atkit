@@ -166,7 +166,7 @@ describe("xmlToJson", () => {
 
   test("given element node with multiple attributes, then returns json with attributes", () =>
     elementTestHelper(
-      "<test foo='' hello='world' sum='42'>text only</test>"
+      "<test foo='' hello='world' sum='42'>text only</test>",
     ).expects({
       __attr__: {
         foo: "",

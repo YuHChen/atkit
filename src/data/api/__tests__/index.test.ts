@@ -14,8 +14,8 @@ describe("Animation Throwdown APIs", () => {
   const errorTestHelper = (api: Api) => async () => {
     server.use(
       rest.get("*", (req, res, ctx) =>
-        res(ctx.status(400), ctx.xml("<root><status>Error</status></root>"))
-      )
+        res(ctx.status(400), ctx.xml("<root><status>Error</status></root>")),
+      ),
     );
 
     const actual = await api();
@@ -29,8 +29,8 @@ describe("Animation Throwdown APIs", () => {
     test(
       "given fetch fails, then transforms response and returns error JSON",
       errorTestHelper(
-        AnimationThrowdown.fetchCardsData.bind(AnimationThrowdown)
-      )
+        AnimationThrowdown.fetchCardsData.bind(AnimationThrowdown),
+      ),
     );
 
     test("given fetch succeeds, then transforms response and returns JSON", async () => {

@@ -8,9 +8,7 @@ interface LoadingPropsBase {
 
 type LoadingProps = PropsWithChildren<LoadingPropsBase>;
 
-const Loading: React.FC<LoadingProps> = (
-  props: LoadingProps
-) => {
+const Loading: React.FC<LoadingProps> = (props: LoadingProps) => {
   if (props.loading) {
     return (
       <Alert className={props.className} variant="info">

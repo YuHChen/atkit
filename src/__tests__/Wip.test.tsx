@@ -12,7 +12,7 @@ describe("Wip", () => {
 
   test("renders as expected given full props", () => {
     const { container } = render(
-      <Wip className="className" pageName="pageName" />
+      <Wip className="className" pageName="pageName" />,
     );
 
     expect(container.firstChild).toMatchSnapshot();

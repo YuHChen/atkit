@@ -8,7 +8,10 @@ const Home = () => (
       <h1 className="display-5">Welcome to atkit!</h1>
       <p>
         atkit is a toolkit for{" "}
-        <a href="http://www.animationthrowdowngame.com" className="text-decoration-none">
+        <a
+          href="http://www.animationthrowdowngame.com"
+          className="text-decoration-none"
+        >
           Animation Throwdown: The Quest for Cards
         </a>{" "}
         game.

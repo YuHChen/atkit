@@ -10,7 +10,7 @@ describe("Loading", () => {
     render(
       <Loading loading={true}>
         <p>{shouldNotBeDisplayed}</p>
-      </Loading>
+      </Loading>,
     );
     const alert = screen.getByRole("alert");
 
@@ -28,7 +28,7 @@ describe("Loading", () => {
     render(
       <Loading loading={false}>
         <p>{shouldBeDisplayed}</p>
-      </Loading>
+      </Loading>,
     );
     const text = screen.getByText(shouldBeDisplayed);
 

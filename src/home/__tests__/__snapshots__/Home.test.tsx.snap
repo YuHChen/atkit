@@ -3,15 +3,18 @@
 exports[`Home renders as expected 1`] = `
 <div>
   <div
-    class="jumbotron"
+    class="p-5 mb-4 bg-body-tertiary rounded-3"
   >
-    <h1>
+    <h1
+      class="display-5"
+    >
       Welcome to atkit!
     </h1>
     <p>
       atkit is a toolkit for
        
       <a
+        class="text-decoration-none"
         href="http://www.animationthrowdowngame.com"
       >
         Animation Throwdown: The Quest for Cards

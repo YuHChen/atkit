@@ -42,7 +42,7 @@ class CachedAnimationThrowdownApi implements AnimationThrowdownApi {
  */
 const withCache = (
   api: AnimationThrowdownApi,
-  cacheOrCtor: Cache | CacheCtor
+  cacheOrCtor: Cache | CacheCtor,
 ): AnimationThrowdownApi => {
   const cache =
     typeof cacheOrCtor === "object" ? cacheOrCtor : new cacheOrCtor();
