@@ -1,20 +1,19 @@
 import React from "react";
-import Jumbotron from "react-bootstrap/Jumbotron";
 
 import Wip from "../Wip";
 
 const Home = () => (
   <div>
-    <Jumbotron>
-      <h1>Welcome to atkit!</h1>
+    <div className="p-5 mb-4 bg-body-tertiary rounded-3">
+      <h1 className="display-5">Welcome to atkit!</h1>
       <p>
         atkit is a toolkit for{" "}
-        <a href="http://www.animationthrowdowngame.com">
+        <a href="http://www.animationthrowdowngame.com" className="text-decoration-none">
           Animation Throwdown: The Quest for Cards
         </a>{" "}
         game.
       </p>
-    </Jumbotron>
+    </div>
 
     <Wip pageName="website" />
   </div>

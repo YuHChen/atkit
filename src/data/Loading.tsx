@@ -1,13 +1,15 @@
 import React, { PropsWithChildren } from "react";
 import Alert from "react-bootstrap/Alert";
 
-interface LoadingProps {
+interface LoadingPropsBase {
   loading: boolean;
   className?: string;
 }
 
+type LoadingProps = PropsWithChildren<LoadingPropsBase>;
+
 const Loading: React.FC<LoadingProps> = (
-  props: PropsWithChildren<LoadingProps>
+  props: LoadingProps
 ) => {
   if (props.loading) {
     return (
