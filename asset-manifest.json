@@ -1,21 +1,14 @@
 {
   "files": {
-    "main.css": "/atkit/static/css/main.5a46aef4.chunk.css",
-    "main.js": "/atkit/static/js/main.536d79d3.chunk.js",
-    "main.js.map": "/atkit/static/js/main.536d79d3.chunk.js.map",
-    "runtime-main.js": "/atkit/static/js/runtime-main.c9aead0e.js",
-    "runtime-main.js.map": "/atkit/static/js/runtime-main.c9aead0e.js.map",
-    "static/js/2.5e66985f.chunk.js": "/atkit/static/js/2.5e66985f.chunk.js",
-    "static/js/2.5e66985f.chunk.js.map": "/atkit/static/js/2.5e66985f.chunk.js.map",
+    "main.css": "/atkit/static/css/main.2848c250.css",
+    "main.js": "/atkit/static/js/main.300c690c.js",
+    "static/media/logo.png": "/atkit/static/media/logo.b8be30a339d1e0a35c81.png",
     "index.html": "/atkit/index.html",
-    "static/css/main.5a46aef4.chunk.css.map": "/atkit/static/css/main.5a46aef4.chunk.css.map",
-    "static/js/2.5e66985f.chunk.js.LICENSE.txt": "/atkit/static/js/2.5e66985f.chunk.js.LICENSE.txt",
-    "static/media/logo.b8be30a3.png": "/atkit/static/media/logo.b8be30a3.png"
+    "main.2848c250.css.map": "/atkit/static/css/main.2848c250.css.map",
+    "main.300c690c.js.map": "/atkit/static/js/main.300c690c.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.c9aead0e.js",
-    "static/js/2.5e66985f.chunk.js",
-    "static/css/main.5a46aef4.chunk.css",
-    "static/js/main.536d79d3.chunk.js"
+    "static/css/main.2848c250.css",
+    "static/js/main.300c690c.js"
   ]
 }
