@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/atkit/static/css/main.2848c250.css",
+    "main.css": "/atkit/static/css/main.ad78d723.css",
     "main.js": "/atkit/static/js/main.300c690c.js",
     "static/media/logo.png": "/atkit/static/media/logo.b8be30a339d1e0a35c81.png",
     "index.html": "/atkit/index.html",
-    "main.2848c250.css.map": "/atkit/static/css/main.2848c250.css.map",
+    "main.ad78d723.css.map": "/atkit/static/css/main.ad78d723.css.map",
     "main.300c690c.js.map": "/atkit/static/js/main.300c690c.js.map"
   },
   "entrypoints": [
-    "static/css/main.2848c250.css",
+    "static/css/main.ad78d723.css",
     "static/js/main.300c690c.js"
   ]
 }
