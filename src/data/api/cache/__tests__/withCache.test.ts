@@ -23,7 +23,7 @@ const mockCache: Cache = {
 const mockCacheCtor: CacheCtor = jest.fn();
 
 const mockFns = Object.values(mockAnimationThrowdownApi).concat(
-  Object.values(mockCache)
+  Object.values(mockCache),
 ) as jest.Mock[];
 
 describe("withCache", () => {

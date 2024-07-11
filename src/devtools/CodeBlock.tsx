@@ -19,7 +19,12 @@ const registeredLanguages: { [key: string]: boolean } = {};
 
 const registerLanguage = (languageName: Language) => {
   if (!registeredLanguages[languageName]) {
-    const language = require(`highlight.js/lib/languages/${languageName}`);
+    // see https://github.com/highlightjs/highlight.js/issues/3223#issuecomment-886143417
+    // on why we need the relative import
+    // track https://github.com/webpack/webpack/issues/13865 for the fix
+    const language = require(
+      `../../node_modules/highlight.js/lib/languages/${languageName}`,
+    );
     hljs.registerLanguage(languageName, language);
     registeredLanguages[languageName] = true;
   }

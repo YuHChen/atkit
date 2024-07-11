@@ -61,15 +61,14 @@ describe("Animation Throwdown APIs", () => {
     ({ apiName, expectations: checkExpectations }: ApiTestParams) => {
       test(
         "given fetch fails, then transforms response and returns error JSON",
-        errorTestHelper(AnimationThrowdown[apiName].bind(AnimationThrowdown))
+        errorTestHelper(AnimationThrowdown[apiName].bind(AnimationThrowdown)),
       );
 
       test("given fetch succeeds, then transforms response and returns JSON", async () => {
-        const actual = await AnimationThrowdown[apiName].call(
-          AnimationThrowdown
-        );
+        const actual =
+          await AnimationThrowdown[apiName].call(AnimationThrowdown);
         checkExpectations(actual);
       });
-    }
+    },
   );
 });

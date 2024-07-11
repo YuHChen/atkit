@@ -8,10 +8,10 @@ const xml = (xmlString: string): string => xmlString.replace(/\s+</g, "<");
 
 const successfulGetHandler = (
   endpoint: string,
-  mockData: string
+  mockData: string,
 ): RestHandler =>
   rest.get(endpoint, (req, res, ctx) =>
-    res(ctx.status(200), ctx.xml(xml(mockData)))
+    res(ctx.status(200), ctx.xml(xml(mockData))),
   );
 
 const cardsRequestHandler: RestHandler = successfulGetHandler(
@@ -152,7 +152,7 @@ const cardsRequestHandler: RestHandler = successfulGetHandler(
         <skill id="leech" x="12"/>
       </upgrade>
     </unit>
-  </root>`
+  </root>`,
 );
 
 const combosRequestHandler: RestHandler = successfulGetHandler(
@@ -162,7 +162,7 @@ const combosRequestHandler: RestHandler = successfulGetHandler(
       <card_id>15178</card_id>
       <cards card1="10009" card2="10051"/>
     </combo>
-  </root>`
+  </root>`,
 );
 
 const handlers: RestHandler[] = [cardsRequestHandler, combosRequestHandler];
