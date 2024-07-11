@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import Alert from "react-bootstrap/Alert";
+import { Alert, Spinner } from "react-bootstrap";
 
 interface LoadingPropsBase {
   loading: boolean;
@@ -12,7 +12,8 @@ const Loading: React.FC<LoadingProps> = (props: LoadingProps) => {
   if (props.loading) {
     return (
       <Alert className={props.className} variant="info">
-        <p className="mb-0">Loading...</p>
+        <Spinner animation="border" role="status" size="sm" />{" "}
+        <span className="mb-0">Loading...</span>
       </Alert>
     );
   }
