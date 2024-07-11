@@ -39,9 +39,23 @@ describe("Animation Throwdown APIs", () => {
     expect(actual).toHaveProperty("unit.name", "Stewie");
   };
 
+  const fetchCombosDataExpectations = (actual: ApiResult) => {
+    expect(actual).toBeDefined();
+    expect(actual).not.toBeNull();
+    expect(typeof actual).toEqual("object");
+    expect(actual).toHaveProperty("combo.card_id", "15178");
+    expect(actual).toHaveProperty("combo.cards", {
+      __attr__: {
+        card1: "10009",
+        card2: "10051",
+      },
+    });
+  };
+
   each`
     apiName              | expectations
     ${"fetchCardsData"}  | ${fetchCardsDataExpectations}
+    ${"fetchCombosData"} | ${fetchCombosDataExpectations}
   `.describe(
     "$apiName",
     ({ apiName, expectations: checkExpectations }: ApiTestParams) => {

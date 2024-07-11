@@ -7,6 +7,7 @@ import withCache from "../withCache";
 
 const mockAnimationThrowdownApi: AnimationThrowdownApi = {
   fetchCardsData: jest.fn(),
+  fetchCombosData: jest.fn(),
 };
 
 const mockContains = jest.fn();
@@ -53,8 +54,9 @@ describe("withCache", () => {
   };
 
   each`
-    apiName             | mockApi
-    ${"fetchCardsData"} | ${mockAnimationThrowdownApi.fetchCardsData}
+    apiName              | mockApi
+    ${"fetchCardsData"}  | ${mockAnimationThrowdownApi.fetchCardsData}
+    ${"fetchCombosData"} | ${mockAnimationThrowdownApi.fetchCombosData}
   `.describe("$apiName", ({ apiName, mockApi }: CachedApiTestParams) => {
     test("given api was not cached, then calls api and returns value", async () => {
       const cachedApi = withCache(mockAnimationThrowdownApi, mockCache);

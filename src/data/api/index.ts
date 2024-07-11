@@ -5,6 +5,7 @@ import xmlToJson from "./xmlToJson";
 
 const ENDPOINTS = {
   CARDS: "https://cb-live.synapse-games.com/assets/cards.xml",
+  COMBOS: "https://cb-live.synapse-games.com/assets/combos.xml",
 };
 
 class AnimationThrowdown implements AnimationThrowdownApi {
@@ -19,6 +20,10 @@ class AnimationThrowdown implements AnimationThrowdownApi {
 
   fetchCardsData(): Promise<ApiResult> {
     return this.fetchData(ENDPOINTS.CARDS);
+  }
+
+  fetchCombosData(): Promise<ApiResult> {
+    return this.fetchData(ENDPOINTS.COMBOS);
   }
 }
 

@@ -31,6 +31,10 @@ class CachedAnimationThrowdownApi implements AnimationThrowdownApi {
   fetchCardsData() {
     return this.withCache(this.animationThrowdownApi.fetchCardsData);
   }
+
+  fetchCombosData() {
+    return this.withCache(this.animationThrowdownApi.fetchCombosData);
+  }
 }
 
 /**

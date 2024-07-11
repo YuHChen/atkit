@@ -155,6 +155,16 @@ const cardsRequestHandler: RestHandler = successfulGetHandler(
   </root>`
 );
 
-const handlers: RestHandler[] = [cardsRequestHandler];
+const combosRequestHandler: RestHandler = successfulGetHandler(
+  ENDPOINTS.COMBOS,
+  `<root>
+    <combo>
+      <card_id>15178</card_id>
+      <cards card1="10009" card2="10051"/>
+    </combo>
+  </root>`
+);
+
+const handlers: RestHandler[] = [cardsRequestHandler, combosRequestHandler];
 
 export { handlers };
