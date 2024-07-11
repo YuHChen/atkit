@@ -1,24 +1,29 @@
 import { useEffect, useState } from "react";
 
-import { CachedAnimationThrowdownApi } from "../data/api";
+import { CachedAnimationThrowdown } from "../data/api";
 import type { AnimationThrowdownApi, ApiResult } from "../data/api/types";
 import Wip from "../Wip";
 
 import DataDumper from "./DataDumper";
 
-const useCardsData = (
-  api: AnimationThrowdownApi = CachedAnimationThrowdownApi
+const dataHookFactory = (apiName: keyof AnimationThrowdownApi) => (
+  animationThrowdownApi: AnimationThrowdownApi = CachedAnimationThrowdown
 ) => {
-  const [cardsData, setCardsData] = useState<ApiResult>(undefined);
+  const [data, setData] = useState<ApiResult>(undefined);
 
   useEffect(() => {
-    if (!cardsData) {
-      api.fetchCardsData().then(setCardsData).catch(console.log);
+    if (!data) {
+      animationThrowdownApi[apiName]
+        .call(animationThrowdownApi)
+        .then(setData)
+        .catch(console.log);
     }
-  }, [api, cardsData]);
+  }, [animationThrowdownApi, data]);
 
-  return cardsData;
+  return data;
 };
+
+const useCardsData = dataHookFactory("fetchCardsData");
 
 const CardsDataDumper: React.FC = () => <DataDumper data={useCardsData()} />;
 

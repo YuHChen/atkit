@@ -1,8 +1,9 @@
+import each from "jest-each";
 import { rest } from "msw";
 
 import AnimationThrowdown from "../index";
 import { server } from "../mocks/server";
-import type { Api } from "../types";
+import type { AnimationThrowdownApi, Api, ApiResult } from "../types";
 
 describe("Animation Throwdown APIs", () => {
   beforeAll(() => server.listen());
@@ -25,22 +26,36 @@ describe("Animation Throwdown APIs", () => {
     });
   };
 
-  describe("fetchCardsData", () => {
-    test(
-      "given fetch fails, then transforms response and returns error JSON",
-      errorTestHelper(
-        AnimationThrowdown.fetchCardsData.bind(AnimationThrowdown),
-      ),
-    );
+  type ApiTestParams = {
+    apiName: keyof AnimationThrowdownApi;
+    expectations: (actual: ApiResult) => void;
+  };
 
-    test("given fetch succeeds, then transforms response and returns JSON", async () => {
-      const actual = await AnimationThrowdown.fetchCardsData();
+  const fetchCardsDataExpectations = (actual: ApiResult) => {
+    expect(actual).toBeDefined();
+    expect(actual).not.toBeNull();
+    expect(typeof actual).toEqual("object");
+    expect(actual).toHaveProperty("unit.id", "10076");
+    expect(actual).toHaveProperty("unit.name", "Stewie");
+  };
 
-      expect(actual).toBeDefined();
-      expect(actual).not.toBeNull();
-      expect(typeof actual).toEqual("object");
-      expect(actual).toHaveProperty("unit.id", "10076");
-      expect(actual).toHaveProperty("unit.name", "Stewie");
-    });
-  });
+  each`
+    apiName              | expectations
+    ${"fetchCardsData"}  | ${fetchCardsDataExpectations}
+  `.describe(
+    "$apiName",
+    ({ apiName, expectations: checkExpectations }: ApiTestParams) => {
+      test(
+        "given fetch fails, then transforms response and returns error JSON",
+        errorTestHelper(AnimationThrowdown[apiName].bind(AnimationThrowdown))
+      );
+
+      test("given fetch succeeds, then transforms response and returns JSON", async () => {
+        const actual = await AnimationThrowdown[apiName].call(
+          AnimationThrowdown
+        );
+        checkExpectations(actual);
+      });
+    }
+  );
 });

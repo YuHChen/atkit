@@ -27,4 +27,4 @@ const CACHED_INSTANCE = withCache(INSTANCE, MemoryCache);
 
 export default INSTANCE;
 
-export { ENDPOINTS, CACHED_INSTANCE as CachedAnimationThrowdownApi };
+export { ENDPOINTS, CACHED_INSTANCE as CachedAnimationThrowdown };
