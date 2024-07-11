@@ -156,6 +156,6 @@ const cardsRequestHandler: RestHandler = rest.get(
   },
 );
 
-const handlers: [RestHandler] = [cardsRequestHandler];
+const handlers: RestHandler[] = [cardsRequestHandler];
 
 export { handlers };
