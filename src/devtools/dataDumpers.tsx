@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import { CachedAnimationThrowdown } from "../data/api";
 import type { AnimationThrowdownApi, ApiResult } from "../data/api/types";
-import Wip from "../Wip";
 
 import DataDumper from "./DataDumper";
 
@@ -27,8 +26,8 @@ const useCardsData = dataHookFactory("fetchCardsData");
 
 const CardsDataDumper: React.FC = () => <DataDumper data={useCardsData()} />;
 
-const CombosDataDumper: React.FC = () => (
-  <Wip pageName="combos data dumper page" />
-);
+const useCombosData = dataHookFactory("fetchCombosData");
+
+const CombosDataDumper: React.FC = () => <DataDumper data={useCombosData()} />;
 
 export { CardsDataDumper, CombosDataDumper };
