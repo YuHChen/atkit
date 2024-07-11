@@ -1,4 +1,6 @@
 import React from "react";
+import { Badge } from "react-bootstrap";
+import type { BadgeProps } from "react-bootstrap";
 
 import { getDefinedKeys, handleJson } from "./jsonUtils";
 import type { Handlers } from "./jsonUtils";
@@ -9,6 +11,22 @@ import "./tableListView.scss";
 
 const NOTHING_TO_SEE = <p>Nothing to see here...</p>;
 
+interface InstancesBadgeProps extends BadgeProps {
+  count: number;
+  additionalContext?: string;
+}
+
+const InstancesBadge: React.FC<InstancesBadgeProps> = ({
+  count,
+  additionalContext = "instances",
+  ...badgeProps
+}: InstancesBadgeProps) => (
+  <React.Fragment>
+    <Badge {...{ variant: "dark", ...badgeProps }}>{count}</Badge>
+    <span className="sr-only">{additionalContext}</span>
+  </React.Fragment>
+);
+
 interface TableViewProps {
   title: string;
   array: JsonArray;
@@ -18,6 +36,7 @@ const renderTable = (array: JsonArray) => {
   const otherContent: JSX.Element[] = [];
   const tableJsonObjects: JsonObject[] = [];
   const uniqueFields = new Set();
+  const fieldCounts = new Map();
 
   const handlers: Handlers = {
     nullHandler: () => otherContent.push(NOTHING_TO_SEE),
@@ -27,6 +46,11 @@ const renderTable = (array: JsonArray) => {
       tableJsonObjects.push(obj);
       for (const key of getDefinedKeys(obj)) {
         uniqueFields.add(key);
+
+        if (obj[key]) {
+          const count = fieldCounts.get(key) || 0;
+          fieldCounts.set(key, count + 1);
+        }
       }
     },
   };
@@ -43,7 +67,7 @@ const renderTable = (array: JsonArray) => {
           <tr>
             {columns.map((col) => (
               <th key={col} className="atkit-th atkit-th-sticky">
-                {col}
+                {col} <InstancesBadge count={fieldCounts.get(col)} />
               </th>
             ))}
           </tr>
@@ -74,7 +98,9 @@ const TableView: React.FC<TableViewProps> = ({
   array,
 }: TableViewProps) => (
   <div className="atkit-table-view">
-    <h2>{title}</h2>
+    <h2>
+      {title} <InstancesBadge count={array.length} />
+    </h2>
     {renderTable(array)}
   </div>
 );
