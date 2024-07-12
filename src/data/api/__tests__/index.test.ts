@@ -1,5 +1,7 @@
+import "../mocks/jest.polyfills";
+
 import each from "jest-each";
-import { rest } from "msw";
+import { HttpResponse, http } from "msw";
 
 import AnimationThrowdown from "../index";
 import { server } from "../mocks/server";
@@ -14,8 +16,10 @@ describe("Animation Throwdown APIs", () => {
 
   const errorTestHelper = (api: Api) => async () => {
     server.use(
-      rest.get("*", (req, res, ctx) =>
-        res(ctx.status(400), ctx.xml("<root><status>Error</status></root>")),
+      http.get("*", () =>
+        HttpResponse.xml("<root><status>Error</status></root>", {
+          status: 400,
+        }),
       ),
     );
 

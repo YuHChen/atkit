@@ -1,4 +1,4 @@
-import { rest, RestHandler } from "msw";
+import { http, HttpHandler, HttpResponse } from "msw";
 
 import { ENDPOINTS } from "../index";
 
@@ -9,12 +9,10 @@ const xml = (xmlString: string): string => xmlString.replace(/\s+</g, "<");
 const successfulGetHandler = (
   endpoint: string,
   mockData: string,
-): RestHandler =>
-  rest.get(endpoint, (req, res, ctx) =>
-    res(ctx.status(200), ctx.xml(xml(mockData))),
-  );
+): HttpHandler =>
+  http.get(endpoint, () => HttpResponse.xml(xml(mockData), { status: 200 }));
 
-const cardsRequestHandler: RestHandler = successfulGetHandler(
+const cardsRequestHandler: HttpHandler = successfulGetHandler(
   ENDPOINTS.CARDS,
   `<root>
     <unit>
@@ -155,7 +153,7 @@ const cardsRequestHandler: RestHandler = successfulGetHandler(
   </root>`,
 );
 
-const combosRequestHandler: RestHandler = successfulGetHandler(
+const combosRequestHandler: HttpHandler = successfulGetHandler(
   ENDPOINTS.COMBOS,
   `<root>
     <combo>
@@ -165,6 +163,6 @@ const combosRequestHandler: RestHandler = successfulGetHandler(
   </root>`,
 );
 
-const handlers: RestHandler[] = [cardsRequestHandler, combosRequestHandler];
+const handlers: HttpHandler[] = [cardsRequestHandler, combosRequestHandler];
 
 export { handlers };
