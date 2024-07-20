@@ -1,4 +1,5 @@
 import each from "jest-each";
+import { Mock, vi } from "vitest";
 
 import type { AnimationThrowdownApi } from "../../types";
 
@@ -6,25 +7,25 @@ import type { Cache, CacheCtor } from "../types";
 import withCache from "../withCache";
 
 const mockAnimationThrowdownApi: AnimationThrowdownApi = {
-  fetchCardsData: jest.fn(),
-  fetchCombosData: jest.fn(),
+  fetchCardsData: vi.fn(),
+  fetchCombosData: vi.fn(),
 };
 
-const mockContains = jest.fn();
-const mockGet = jest.fn();
+const mockContains = vi.fn();
+const mockGet = vi.fn();
 const mockCache: Cache = {
   contains: mockContains,
   get: mockGet,
-  put: jest.fn(),
-  clear: jest.fn(),
-  reset: jest.fn(),
+  put: vi.fn(),
+  clear: vi.fn(),
+  reset: vi.fn(),
 };
 
-const mockCacheCtor: CacheCtor = jest.fn();
+const mockCacheCtor: CacheCtor = vi.fn();
 
 const mockFns = Object.values(mockAnimationThrowdownApi).concat(
   Object.values(mockCache),
-) as jest.Mock[];
+) as Mock[];
 
 describe("withCache", () => {
   beforeEach(() => {
@@ -50,7 +51,7 @@ describe("withCache", () => {
 
   type CachedApiTestParams = {
     apiName: keyof AnimationThrowdownApi;
-    mockApi: jest.Mock;
+    mockApi: Mock;
   };
 
   each`

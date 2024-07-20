@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Home renders as expected 1`] = `
+exports[`Home > renders as expected 1`] = `
 <div>
   <div
     class="p-5 mb-4 bg-body-tertiary rounded-3"

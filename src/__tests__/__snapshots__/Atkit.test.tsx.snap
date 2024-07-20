@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Atkit renders as expected in development 1`] = `
+exports[`Atkit > renders as expected in development 1`] = `
 <div
   class="atkit"
 >
@@ -18,7 +18,7 @@ exports[`Atkit renders as expected in development 1`] = `
           alt="atkit logo"
           class="d-inline-block align-top"
           height="30"
-          src="logo.png"
+          src="/atkit/src/assets/logo.png"
           width="30"
         />
       </a>
@@ -128,7 +128,7 @@ exports[`Atkit renders as expected in development 1`] = `
 </div>
 `;
 
-exports[`Atkit renders as expected in production 1`] = `
+exports[`Atkit > renders as expected in production 1`] = `
 <div
   class="atkit"
 >
@@ -146,7 +146,7 @@ exports[`Atkit renders as expected in production 1`] = `
           alt="atkit logo"
           class="d-inline-block align-top"
           height="30"
-          src="logo.png"
+          src="/atkit/src/assets/logo.png"
           width="30"
         />
       </a>

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Wip renders as expected given full props 1`] = `
+exports[`Wip > renders as expected given full props 1`] = `
 <div
   class="fade className alert alert-info show"
   role="alert"
@@ -20,7 +20,7 @@ exports[`Wip renders as expected given full props 1`] = `
 </div>
 `;
 
-exports[`Wip renders as expected given minimal props 1`] = `
+exports[`Wip > renders as expected given minimal props 1`] = `
 <div
   class="fade alert alert-info show"
   role="alert"

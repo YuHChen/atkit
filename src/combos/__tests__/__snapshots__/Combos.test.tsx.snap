@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Combos renders as expected 1`] = `
+exports[`Combos > renders as expected 1`] = `
 <div
   class="fade alert alert-info show"
   role="alert"
