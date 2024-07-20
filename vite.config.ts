@@ -1,10 +1,15 @@
-import { coverageConfigDefaults, defineConfig } from "vitest/config"
-import react from "@vitejs/plugin-react"
-import viteTsconfigPaths from "vite-tsconfig-paths"
+import react from "@vitejs/plugin-react";
+import eslint from "vite-plugin-eslint";
+import viteTsconfigPaths from "vite-tsconfig-paths";
+import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig({
   base: "/atkit/",
-  plugins: [react(), viteTsconfigPaths()],
+  plugins: [
+    eslint(),
+    react(),
+    viteTsconfigPaths()
+  ],
   server: {
     open: true,
     port: 3000,
