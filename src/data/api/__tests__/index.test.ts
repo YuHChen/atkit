@@ -1,5 +1,3 @@
-import "../mocks/jest.polyfills";
-
 import each from "jest-each";
 import { HttpResponse, http } from "msw";
 
