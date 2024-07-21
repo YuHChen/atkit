@@ -1,4 +1,3 @@
-import each from "jest-each";
 import { HttpResponse, http } from "msw";
 
 import AnimationThrowdown from "../index";
@@ -54,11 +53,11 @@ describe("Animation Throwdown APIs", () => {
     });
   };
 
-  each`
+  describe.each`
     apiName              | expectations
     ${"fetchCardsData"}  | ${fetchCardsDataExpectations}
     ${"fetchCombosData"} | ${fetchCombosDataExpectations}
-  `.describe(
+  `(
     "$apiName",
     ({ apiName, expectations: checkExpectations }: ApiTestParams) => {
       test(

@@ -1,5 +1,3 @@
-import each from "jest-each";
-
 import type { Cache, CacheCtor } from "../types";
 import MemoryCache from "../MemoryCache";
 
@@ -19,10 +17,10 @@ type CacheTestParams = {
   name: string;
 };
 
-each`
+describe.each`
   ctor           | name
   ${MemoryCache} | ${"MemoryCache"}
-`.describe("$name", ({ ctor }: CacheTestParams) => {
+`("$name", ({ ctor }: CacheTestParams) => {
   const setUpCache = async () => {
     const cache = new ctor();
 

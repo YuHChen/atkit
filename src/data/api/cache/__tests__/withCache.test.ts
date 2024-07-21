@@ -1,4 +1,3 @@
-import each from "jest-each";
 import { Mock, vi } from "vitest";
 
 import type { AnimationThrowdownApi } from "../../types";
@@ -54,11 +53,11 @@ describe("withCache", () => {
     mockApi: Mock;
   };
 
-  each`
+  describe.each`
     apiName              | mockApi
     ${"fetchCardsData"}  | ${mockAnimationThrowdownApi.fetchCardsData}
     ${"fetchCombosData"} | ${mockAnimationThrowdownApi.fetchCombosData}
-  `.describe("$apiName", ({ apiName, mockApi }: CachedApiTestParams) => {
+  `("$apiName", ({ apiName, mockApi }: CachedApiTestParams) => {
     test("given api was not cached, then calls api and returns value", async () => {
       const cachedApi = withCache(mockAnimationThrowdownApi, mockCache);
 
