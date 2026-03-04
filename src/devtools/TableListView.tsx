@@ -33,7 +33,7 @@ interface TableViewProps {
 }
 
 const renderTable = (array: JsonArray) => {
-  const otherContent: JSX.Element[] = [];
+  const otherContent: React.JSX.Element[] = [];
   const tableJsonObjects: JsonObject[] = [];
   const uniqueFields = new Set();
   const fieldCounts = new Map();
@@ -110,7 +110,7 @@ interface TableListViewProps {
 }
 
 const renderTableList = (json: Json, title: string = "array data") => {
-  let tableList: JSX.Element = <React.Fragment />;
+  let tableList: React.JSX.Element = <React.Fragment />;
 
   handleJson(json, {
     nullHandler: () => (tableList = NOTHING_TO_SEE),
