@@ -11,5 +11,5 @@ const IS_DEVO = "development" === process.env.NODE_ENV;
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Atkit isDevo={IS_DEVO} />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
