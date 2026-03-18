@@ -36,7 +36,7 @@
     "vite": "^6.4.1",
     "vite-plugin-eslint": "^1.8.1",
     "vite-tsconfig-paths": "^6.0.5",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.0"
   },
   "scripts": {
     "postinstall": "mkdir -p src/assets/js/ && cp -a node_modules/@highlightjs/ src/assets/js/@highlightjs/",
