@@ -1,34 +1,21 @@
-/*
-  workaround for highlight.js types
-  see https://github.com/highlightjs/highlight.js/issues/2682
-  track potential fix https://github.com/DefinitelyTyped/DefinitelyTyped/pull/52120
-*/
-/// <reference types="../../node_modules/highlight.js" />
-import hljs from "highlight.js/lib/core";
 import React from "react";
 
-import "highlight.js/styles/vs2015.css";
-
+import hljs from "../assets/js/@highlightjs/cdn-assets/es/core.js";
+import json from "../assets/js/@highlightjs/cdn-assets/es/languages/json.min.js";
+import xml from "../assets/js/@highlightjs/cdn-assets/es/languages/xml.min.js";
+import "../assets/js/@highlightjs/cdn-assets/styles/vs2015.css";
 import "./codeBlock.scss";
 
 // limiting to subset of languages at
 // https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
-type Language = "json" | "javascript" | "typescript" | "xml";
-
-const registeredLanguages: { [key: string]: boolean } = {};
-
-const registerLanguage = (languageName: Language) => {
-  if (!registeredLanguages[languageName]) {
-    // see https://github.com/highlightjs/highlight.js/issues/3223#issuecomment-886143417
-    // on why we need the relative import
-    // track https://github.com/webpack/webpack/issues/13865 for the fix
-    const language = require(
-      `../../node_modules/highlight.js/lib/languages/${languageName}`,
-    );
-    hljs.registerLanguage(languageName, language);
-    registeredLanguages[languageName] = true;
-  }
-};
+const LANGUAGES = {
+  json,
+  xml,
+} as const;
+type Language = keyof typeof LANGUAGES;
+for (const [languageName, language] of Object.entries(LANGUAGES)) {
+  hljs.registerLanguage(languageName, language);
+}
 
 const classNames = (...names: (string | undefined)[]) =>
   names.filter((name) => undefined !== name).join(" ");
@@ -45,7 +32,6 @@ const CodeBlock: React.FC<CodeBlockProps> = (props: CodeBlockProps) => {
 
   let highlightedCode;
   if (language) {
-    registerLanguage(language);
     highlightedCode = hljs.highlight(code, { language }).value;
   } else {
     highlightedCode = hljs.highlightAuto(code).value;

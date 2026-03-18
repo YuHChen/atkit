@@ -21,8 +21,10 @@ export default defineConfig({
       include: ["src/**"],
       exclude: [
         "src/index.tsx",
+        "src/assets/js/**",
         "src/devtools/**",
         "src/data/api/mocks/**",
+        "**/types.ts",
         ...coverageConfigDefaults.exclude
       ],
       thresholds: {
