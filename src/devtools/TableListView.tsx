@@ -4,12 +4,14 @@ import type { BadgeProps } from "react-bootstrap";
 
 import { getDefinedKeys, handleJson } from "./jsonUtils";
 import type { Handlers } from "./jsonUtils";
-import JsonView from "./JsonView";
 import { Json, JsonArray, JsonObject } from "./types";
 
 import "./tableListView.scss";
 
-const NOTHING_TO_SEE = <p>Nothing to see here...</p>;
+const INDENT = (indent: number) => "".padStart(indent * 2, "-");
+const NOTHING_TO_SEE = (key: string, indent: number) => (
+  <p key={key}>{INDENT(indent)} Nothing to see here...</p>
+);
 
 interface InstancesBadgeProps extends BadgeProps {
   count: number;
@@ -18,7 +20,7 @@ interface InstancesBadgeProps extends BadgeProps {
 
 const InstancesBadge: React.FC<InstancesBadgeProps> = ({
   count,
-  additionalContext = "instances",
+  additionalContext = "",
   ...badgeProps
 }: InstancesBadgeProps) => (
   <React.Fragment>
@@ -29,35 +31,54 @@ const InstancesBadge: React.FC<InstancesBadgeProps> = ({
 
 interface TableViewProps {
   title: string;
+  indent: number;
   array: JsonArray;
 }
 
-const renderTable = (array: JsonArray) => {
+const renderTable = (title: string, indent: number, array: JsonArray) => {
   const otherContent: React.JSX.Element[] = [];
   const tableJsonObjects: JsonObject[] = [];
   const uniqueFields = new Set();
   const fieldCounts = new Map();
 
-  const handlers: Handlers = {
-    nullHandler: () => otherContent.push(NOTHING_TO_SEE),
-    primativeHandler: (primative) => otherContent.push(<p>{primative}</p>),
-    arrayHandler: (array) => otherContent.push(<JsonView json={array} />),
-    objectHandler: (obj) => {
-      tableJsonObjects.push(obj);
-      for (const key of getDefinedKeys(obj)) {
-        uniqueFields.add(key);
+  const handlers: (index: number) => Handlers = (index: number) => {
+    const handlerTitle = `${title}-${index}`;
+    return {
+      nullHandler: () =>
+        otherContent.push(NOTHING_TO_SEE(handlerTitle, indent)),
+      primativeHandler: (primative) =>
+        otherContent.push(
+          <p key={handlerTitle}>
+            {INDENT(indent)} {handlerTitle}: {primative}
+          </p>,
+        ),
+      arrayHandler: (array) =>
+        otherContent.push(
+          <TableView
+            key={handlerTitle}
+            title={handlerTitle}
+            indent={indent + 1}
+            array={array}
+          />,
+        ),
+      objectHandler: (obj) => {
+        tableJsonObjects.push(obj);
+        for (const key of getDefinedKeys(obj)) {
+          uniqueFields.add(key);
 
-        if (obj[key]) {
-          const count = fieldCounts.get(key) || 0;
-          fieldCounts.set(key, count + 1);
+          if (obj[key]) {
+            const count = fieldCounts.get(key) || 0;
+            fieldCounts.set(key, count + 1);
+          }
         }
-      }
-    },
+      },
+    };
   };
 
-  for (const json of array) {
-    handleJson(json, handlers);
-  }
+  array.forEach((json, index) => {
+    console.debug(`rendering table for ${title} ${index}`);
+    handleJson(json, handlers(index));
+  });
 
   const columns = Array.from(uniqueFields) as string[];
   const table = (
@@ -95,32 +116,50 @@ const renderTable = (array: JsonArray) => {
 
 const TableView: React.FC<TableViewProps> = ({
   title,
+  indent,
   array,
 }: TableViewProps) => (
   <div className="atkit-table-view">
-    <h2>
-      {title} <InstancesBadge count={array.length} />
+    <h2 key={title}>
+      {INDENT(indent)} {title} <InstancesBadge count={array.length} />
     </h2>
-    {renderTable(array)}
+    {renderTable(title, indent, array)}
   </div>
 );
 
 interface TableListViewProps {
   json: Json;
+  title?: string;
 }
 
-const renderTableList = (json: Json, title: string = "array data") => {
+const renderTableList = (
+  json: Json,
+  title: string = "raw data",
+  indent = 0,
+) => {
   let tableList: React.JSX.Element = <React.Fragment />;
 
   handleJson(json, {
-    nullHandler: () => (tableList = NOTHING_TO_SEE),
-    primativeHandler: (primative) => (tableList = <p>{primative}</p>),
+    nullHandler: () => (tableList = NOTHING_TO_SEE(title, indent)),
+    primativeHandler: (primative) =>
+      (tableList = (
+        <p key={title}>
+          {INDENT(indent)} {title}: {primative}
+        </p>
+      )),
     arrayHandler: (array) =>
-      (tableList = <TableView key={title} title={title} array={array} />),
+      (tableList = (
+        <TableView key={title} title={title} indent={indent} array={array} />
+      )),
     objectHandler: (obj) =>
       (tableList = (
-        <React.Fragment>
-          {getDefinedKeys(obj).map((key) => renderTableList(obj[key], key))}
+        <React.Fragment key={title}>
+          <h2>
+            {INDENT(indent)} {title}
+          </h2>
+          {getDefinedKeys(obj).map((key) =>
+            renderTableList(obj[key], key, indent + 1),
+          )}
         </React.Fragment>
       )),
   });
@@ -130,8 +169,9 @@ const renderTableList = (json: Json, title: string = "array data") => {
 
 const TableListView: React.FC<TableListViewProps> = ({
   json,
+  title,
 }: TableListViewProps) => (
-  <div className="atkit-table-list">{renderTableList(json)}</div>
+  <div className="atkit-table-list">{renderTableList(json, title)}</div>
 );
 
 export default TableListView;

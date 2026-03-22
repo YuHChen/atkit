@@ -8,12 +8,18 @@ import type { Json } from "./types";
 
 interface DataDumperProps {
   data?: Json;
+  title?: string;
+  viewJson?: boolean;
 }
 
-const DataDumper: React.FC<DataDumperProps> = ({ data }: DataDumperProps) => (
+const DataDumper: React.FC<DataDumperProps> = ({
+  data,
+  title,
+  viewJson,
+}: DataDumperProps) => (
   <Loading loading={null === data || undefined === data}>
-    <JsonView json={data!} />
-    <TableListView json={data!} />
+    {viewJson && <JsonView json={data!} />}
+    <TableListView json={data!} title={title} />
   </Loading>
 );
 
