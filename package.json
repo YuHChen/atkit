@@ -39,13 +39,16 @@
     "vitest": "^3.2.4"
   },
   "scripts": {
+    "data": "mkdir -p src/assets/data/ && npm run data:cards && npm run data:combos",
+    "data:cards": "curl https://cb-cdn.synapsegames.com/data/cards_4432720df69433df73df49236240a736.json | python -m json.tool > src/assets/data/cards.json",
+    "data:combos": "curl https://cb-cdn.synapsegames.com/data/combos_c24d7fb814bee75a2f3cb1acabe81b82.json | python -m json.tool > src/assets/data/combos.json",
     "postinstall": "mkdir -p src/assets/js/ && cp -a node_modules/@highlightjs/ src/assets/js/@highlightjs/",
     "clean": "rm -rf {build,coverage,node_modules,src/assets/js}",
     "check": "npm run style && npm run test:coverage",
     "style": "npm run lint && npm run format",
     "style:fix": "npm run lint:fix && npm run format:fix",
-    "lint": "eslint --color \"src/**/*.{js,jsx,ts,tsx,json,md}\"",
-    "lint:fix": "eslint --color --fix \"src/**/*.{js,jsx,ts,tsx,json,md}\"",
+    "lint": "eslint --color \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint:fix": "eslint --color --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "format": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "format:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "test": "vitest run",
