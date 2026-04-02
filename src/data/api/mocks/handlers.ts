@@ -1,166 +1,347 @@
 import { http, HttpHandler, HttpResponse } from "msw";
 
 import { ENDPOINTS } from "../index";
+import { Json } from "../../../devtools/types";
 
-// replace all whitespace characters including newlines before opening tags
-// this allows writing human readable mock data while still parsing as expected
-const xml = (xmlString: string): string => xmlString.replace(/\s+</g, "<");
+const successfulGetHandler = (endpoint: string, mockData: Json): HttpHandler =>
+  http.get(endpoint, () => HttpResponse.json(mockData, { status: 200 }));
 
-const successfulGetHandler = (
-  endpoint: string,
-  mockData: string,
-): HttpHandler =>
-  http.get(endpoint, () => HttpResponse.xml(xml(mockData), { status: 200 }));
-
-const cardsRequestHandler: HttpHandler = successfulGetHandler(
-  ENDPOINTS.CARDS,
-  `<root>
-    <unit>
-      <id>10076</id>
-      <name>Stewie</name>
-      <desc>What the deuce?! Damn you all! Ha ha, classic. Stewie here. We're gonna have fun together.</desc>
-      <character>fg_stewie</character>
-      <picture>FG_LMStewie</picture>
-      <asset_bundle>49</asset_bundle>
-      <release_time>1563127200</release_time>
-      <attack>6</attack>
-      <health>30</health>
-      <rarity>4</rarity>
-      <skill id="barrierall" x="1"/>
-      <skill id="strike" x="2"/>
-      <skill id="leech" x="4"/>
-      <type>1</type>
-      <set>2</set>
-      <upgrade>
-        <level>2</level>
-        <health>31</health>
-        <skill id="barrierall" x="1"/>
-        <skill id="strike" x="3"/>
-        <skill id="leech" x="4"/>
-      </upgrade>
-      <upgrade>
-        <level>3</level>
-        <health>33</health>
-        <skill id="barrierall" x="1"/>
-        <skill id="strike" x="3"/>
-        <skill id="leech" x="5"/>
-      </upgrade>
-      <upgrade>
-        <level>4</level>
-        <health>34</health>
-        <attack>7</attack>
-      </upgrade>
-      <upgrade>
-        <level>5</level>
-        <health>36</health>
-        <skill id="barrierall" x="1"/>
-        <skill id="strike" x="3"/>
-        <skill id="leech" x="6"/>
-      </upgrade>
-      <upgrade>
-        <level>6</level>
-        <health>38</health>
-        <attack>8</attack>
-        <skill id="barrierall" x="1"/>
-        <skill id="strike" x="4"/>
-        <skill id="leech" x="6"/>
-      </upgrade>
-      <upgrade>
-        <level>7</level>
-        <health>39</health>
-        <skill id="barrierall" x="1"/>
-        <skill id="strike" x="4"/>
-        <skill id="leech" x="7"/>
-      </upgrade>
-      <upgrade>
-        <level>8</level>
-        <health>41</health>
-        <skill id="barrierall" x="2"/>
-        <skill id="strike" x="4"/>
-        <skill id="leech" x="7"/>
-      </upgrade>
-      <upgrade>
-      <level>9</level>
-        <health>43</health>
-        <skill id="barrierall" x="2"/>
-        <skill id="strike" x="5"/>
-        <skill id="leech" x="7"/>
-      </upgrade>
-      <upgrade>
-        <level>10</level>
-        <health>44</health>
-        <attack>9</attack>
-        <skill id="barrierall" x="2"/>
-        <skill id="strike" x="5"/>
-        <skill id="leech" x="8"/>
-      </upgrade>
-      <upgrade>
-        <level>11</level>
-        <health>46</health>
-        <skill id="barrierall" x="2"/>
-        <skill id="strike" x="5"/>
-        <skill id="leech" x="9"/>
-      </upgrade>
-      <upgrade>
-        <level>12</level>
-        <health>48</health>
-        <skill id="barrierall" x="2"/>
-        <skill id="strike" x="6"/>
-        <skill id="leech" x="9"/>
-      </upgrade>
-      <upgrade>
-        <level>13</level>
-        <health>49</health>
-        <skill id="barrierall" x="2"/>
-        <skill id="strike" x="6"/>
-        <skill id="leech" x="10"/>
-      </upgrade>
-      <upgrade>
-        <level>14</level>
-        <health>51</health>
-        <attack>10</attack>
-        <skill id="barrierall" x="2"/>
-        <skill id="strike" x="7"/>
-        <skill id="leech" x="10"/>
-      </upgrade>
-      <upgrade>
-        <level>15</level>
-        <health>53</health>
-        <skill id="barrierall" x="2"/>
-        <skill id="strike" x="7"/>
-        <skill id="leech" x="11"/>
-      </upgrade>
-      <upgrade>
-        <level>16</level>
-        <health>54</health>
-        <attack>11</attack>
-      </upgrade>
-      <upgrade>
-      <level>17</level>
-        <health>56</health>
-        <skill id="barrierall" x="3"/>
-        <skill id="strike" x="7"/>
-        <skill id="leech" x="11"/>
-      </upgrade>
-      <upgrade>
-        <level>18</level>
-        <health>58</health>
-        <skill id="barrierall" x="3"/>
-        <skill id="strike" x="8"/>
-        <skill id="leech" x="12"/>
-      </upgrade>
-    </unit>
-  </root>`,
-);
+const cardsRequestHandler: HttpHandler = successfulGetHandler(ENDPOINTS.CARDS, {
+  asset_bundle: "49",
+  attack: "6",
+  card_type: "character",
+  character: "fg_stewie",
+  desc: "What the deuce?! Damn you all! Ha ha, classic. Stewie here. We're gonna have fun together.",
+  health: "36",
+  id: "10076",
+  name: "Stewie",
+  picture: "FG_LMStewie",
+  power: 54,
+  rarity: "4",
+  release_time: "1563127200",
+  set: "2",
+  skill: [
+    {
+      id: "barrierall",
+      x: "1",
+    },
+    {
+      id: "strike",
+      x: "2",
+    },
+    {
+      id: "leech",
+      x: "4",
+    },
+  ],
+  type: "1",
+  upgrade: [
+    {
+      health: "37",
+      level: "2",
+      power: 55,
+      skill: [
+        {
+          id: "barrierall",
+          x: "1",
+        },
+        {
+          id: "strike",
+          x: "3",
+        },
+        {
+          id: "leech",
+          x: "4",
+        },
+      ],
+    },
+    {
+      health: "38",
+      level: "3",
+      power: 56,
+      skill: [
+        {
+          id: "barrierall",
+          x: "1",
+        },
+        {
+          id: "strike",
+          x: "3",
+        },
+        {
+          id: "leech",
+          x: "5",
+        },
+      ],
+    },
+    {
+      attack: "7",
+      health: "39",
+      level: "4",
+      power: 60,
+    },
+    {
+      health: "40",
+      level: "5",
+      power: 61,
+      skill: [
+        {
+          id: "barrierall",
+          x: "1",
+        },
+        {
+          id: "strike",
+          x: "3",
+        },
+        {
+          id: "leech",
+          x: "6",
+        },
+      ],
+    },
+    {
+      attack: "8",
+      health: "41",
+      level: "6",
+      power: 65,
+      skill: [
+        {
+          id: "barrierall",
+          x: "1",
+        },
+        {
+          id: "strike",
+          x: "4",
+        },
+        {
+          id: "leech",
+          x: "6",
+        },
+      ],
+    },
+    {
+      health: "42",
+      level: "7",
+      power: 66,
+      skill: [
+        {
+          id: "barrierall",
+          x: "1",
+        },
+        {
+          id: "strike",
+          x: "4",
+        },
+        {
+          id: "leech",
+          x: "7",
+        },
+      ],
+    },
+    {
+      health: "43",
+      level: "8",
+      power: 67,
+      skill: [
+        {
+          id: "barrierall",
+          x: "2",
+        },
+        {
+          id: "strike",
+          x: "4",
+        },
+        {
+          id: "leech",
+          x: "7",
+        },
+      ],
+    },
+    {
+      health: "44",
+      level: "9",
+      power: 68,
+      skill: [
+        {
+          id: "barrierall",
+          x: "2",
+        },
+        {
+          id: "strike",
+          x: "5",
+        },
+        {
+          id: "leech",
+          x: "7",
+        },
+      ],
+    },
+    {
+      attack: "9",
+      health: "45",
+      level: "10",
+      power: 72,
+      skill: [
+        {
+          id: "barrierall",
+          x: "2",
+        },
+        {
+          id: "strike",
+          x: "5",
+        },
+        {
+          id: "leech",
+          x: "8",
+        },
+      ],
+    },
+    {
+      health: "47",
+      level: "11",
+      power: 74,
+      skill: [
+        {
+          id: "barrierall",
+          x: "2",
+        },
+        {
+          id: "strike",
+          x: "5",
+        },
+        {
+          id: "leech",
+          x: "9",
+        },
+      ],
+    },
+    {
+      health: "49",
+      level: "12",
+      power: 76,
+      skill: [
+        {
+          id: "barrierall",
+          x: "2",
+        },
+        {
+          id: "strike",
+          x: "6",
+        },
+        {
+          id: "leech",
+          x: "9",
+        },
+      ],
+    },
+    {
+      health: "52",
+      level: "13",
+      power: 79,
+      skill: [
+        {
+          id: "barrierall",
+          x: "2",
+        },
+        {
+          id: "strike",
+          x: "6",
+        },
+        {
+          id: "leech",
+          x: "10",
+        },
+      ],
+    },
+    {
+      attack: "10",
+      health: "54",
+      level: "14",
+      power: 84,
+      skill: [
+        {
+          id: "barrierall",
+          x: "2",
+        },
+        {
+          id: "strike",
+          x: "7",
+        },
+        {
+          id: "leech",
+          x: "10",
+        },
+      ],
+    },
+    {
+      health: "56",
+      level: "15",
+      power: 86,
+      skill: [
+        {
+          id: "barrierall",
+          x: "2",
+        },
+        {
+          id: "strike",
+          x: "7",
+        },
+        {
+          id: "leech",
+          x: "11",
+        },
+      ],
+    },
+    {
+      attack: "11",
+      health: "58",
+      level: "16",
+      power: 91,
+    },
+    {
+      health: "59",
+      level: "17",
+      power: 92,
+      skill: [
+        {
+          id: "barrierall",
+          x: "3",
+        },
+        {
+          id: "strike",
+          x: "8",
+        },
+        {
+          id: "leech",
+          x: "11",
+        },
+      ],
+    },
+    {
+      health: "61",
+      level: "18",
+      power: 94,
+      skill: [
+        {
+          id: "barrierall",
+          x: "3",
+        },
+        {
+          id: "strike",
+          x: "9",
+        },
+        {
+          id: "leech",
+          x: "12",
+        },
+      ],
+    },
+  ],
+});
 
 const combosRequestHandler: HttpHandler = successfulGetHandler(
   ENDPOINTS.COMBOS,
-  `<root>
-    <combo>
-      <card_id>15178</card_id>
-      <cards card1="10009" card2="10051"/>
-    </combo>
-  </root>`,
+  { "10009~10051": "15178|" },
 );
 
 const handlers: HttpHandler[] = [cardsRequestHandler, combosRequestHandler];

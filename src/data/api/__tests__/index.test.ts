@@ -14,9 +14,12 @@ describe("Animation Throwdown APIs", () => {
   const errorTestHelper = (api: Api) => async () => {
     server.use(
       http.get("*", () =>
-        HttpResponse.json('{ "status": "Error" }', {
-          status: 400,
-        }),
+        HttpResponse.json(
+          { status: "Error" },
+          {
+            status: 400,
+          },
+        ),
       ),
     );
 
@@ -36,21 +39,15 @@ describe("Animation Throwdown APIs", () => {
     expect(actual).toBeDefined();
     expect(actual).not.toBeNull();
     expect(typeof actual).toEqual("object");
-    expect(actual).toHaveProperty("unit.id", "10076");
-    expect(actual).toHaveProperty("unit.name", "Stewie");
+    expect(actual).toHaveProperty("id", "10076");
+    expect(actual).toHaveProperty("name", "Stewie");
   };
 
   const fetchCombosDataExpectations = (actual: ApiResult) => {
     expect(actual).toBeDefined();
     expect(actual).not.toBeNull();
     expect(typeof actual).toEqual("object");
-    expect(actual).toHaveProperty("combo.card_id", "15178");
-    expect(actual).toHaveProperty("combo.cards", {
-      __attr__: {
-        card1: "10009",
-        card2: "10051",
-      },
-    });
+    expect(actual).toHaveProperty("10009~10051", "15178|");
   };
 
   describe.each`
