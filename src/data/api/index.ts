@@ -1,21 +1,16 @@
 import MemoryCache from "./cache/MemoryCache";
 import withCache from "./cache/withCache";
 import type { AnimationThrowdownApi, ApiResult } from "./types";
-import xmlToJson from "./xmlToJson";
 
 const ENDPOINTS = {
-  CARDS: "https://cb-live.synapse-games.com/assets/cards.xml",
-  COMBOS: "https://cb-live.synapse-games.com/assets/combos.xml",
+  CARDS: new URL("../../assets/data/cards.json", import.meta.url).href,
+  COMBOS: new URL("../../assets/data/combos.json", import.meta.url).href,
 };
 
 class AnimationThrowdown implements AnimationThrowdownApi {
-  private parser: DOMParser = new DOMParser();
-
   private async fetchData(url: string): Promise<ApiResult> {
     const response = await fetch(url);
-    const text = await response.text();
-    const xml = this.parser.parseFromString(text, "text/xml");
-    return xmlToJson(xml);
+    return response.json();
   }
 
   fetchCardsData(): Promise<ApiResult> {
@@ -32,4 +27,4 @@ const CACHED_INSTANCE = withCache(INSTANCE, MemoryCache);
 
 export default INSTANCE;
 
-export { ENDPOINTS, CACHED_INSTANCE as CachedAnimationThrowdown };
+export { CACHED_INSTANCE as CachedAnimationThrowdown, ENDPOINTS };

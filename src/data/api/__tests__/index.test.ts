@@ -14,7 +14,7 @@ describe("Animation Throwdown APIs", () => {
   const errorTestHelper = (api: Api) => async () => {
     server.use(
       http.get("*", () =>
-        HttpResponse.xml("<root><status>Error</status></root>", {
+        HttpResponse.json('{ "status": "Error" }', {
           status: 400,
         }),
       ),
