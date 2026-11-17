@@ -1,4 +1,4 @@
-import { http, HttpHandler, HttpResponse } from "msw";
+import { http, HttpHandler, HttpResponse } from "msw/http";
 
 import { ENDPOINTS } from "../index";
 import { Json } from "../../../devtools/types";
