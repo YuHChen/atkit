@@ -10,7 +10,7 @@ const ENDPOINTS = {
 class AnimationThrowdown implements AnimationThrowdownApi {
   private async fetchData(url: string): Promise<ApiResult> {
     const response = await fetch(url);
-    return response.json();
+    return response.json() as Promise<ApiResult>;
   }
 
   fetchCardsData(): Promise<ApiResult> {

@@ -1,7 +1,10 @@
 export type ConvertedText = string | undefined;
-export type ConvertedJson = { [key: string]: any };
+export type ConvertedJson = {
+  [key: string]: ConversionResult | ConversionResult[];
+};
 export type ConvertedAttributesJson = { [key: string]: string | null };
-export type ConversionResult = ConvertedText | ConvertedJson;
+export type ConversionResult =
+  ConvertedText | ConvertedJson | ConvertedAttributesJson;
 
 const xmlToJson = (xml: Node): ConversionResult => {
   switch (xml.nodeType) {
@@ -88,11 +91,11 @@ const convertChildren = (children: NodeListOf<ChildNode>): ConvertedJson => {
       json[key] = value;
     } else {
       // `key` was previously parsed
-      if ("undefined" === typeof json[key].push) {
+      if (!Array.isArray(json[key])) {
         // existing value is not array-like, so change to array
         json[key] = [json[key]];
       }
-      // existing value is an array, so append
+      // existing value is guaranteed to be an array after above, so append
       json[key].push(value);
     }
   }

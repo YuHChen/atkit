@@ -1,6 +1,6 @@
-type Json = { [key: string]: any };
+import { Json } from "../types";
 
-type ApiResult = string | Json | undefined;
+type ApiResult = Json | undefined;
 
 type Api = () => Promise<ApiResult>;
 

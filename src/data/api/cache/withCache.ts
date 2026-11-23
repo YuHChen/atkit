@@ -23,8 +23,7 @@ class CachedAnimationThrowdownApi implements AnimationThrowdownApi {
       return this.cache.get(key);
     } else {
       const value = api.call(this.animationThrowdownApi);
-      this.cache.put(key, value);
-      return value;
+      return this.cache.put(key, value);
     }
   }
 

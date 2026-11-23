@@ -2,9 +2,9 @@ import React from "react";
 
 import Loading from "../data/Loading";
 
+import type { Json } from "../data/types";
 import JsonView from "./JsonView";
 import TableListView from "./TableListView";
-import type { Json } from "./types";
 
 interface DataDumperProps {
   data?: Json;

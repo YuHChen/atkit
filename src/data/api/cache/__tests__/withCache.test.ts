@@ -12,10 +12,11 @@ const mockAnimationThrowdownApi: AnimationThrowdownApi = {
 
 const mockContains = vi.fn();
 const mockGet = vi.fn();
+const mockPut = vi.fn();
 const mockCache: Cache = {
   contains: mockContains,
   get: mockGet,
-  put: vi.fn(),
+  put: mockPut,
   clear: vi.fn(),
   reset: vi.fn(),
 };
@@ -62,6 +63,7 @@ describe("withCache", () => {
       const cachedApi = withCache(mockAnimationThrowdownApi, mockCache);
 
       mockContains.mockResolvedValue(false);
+      mockPut.mockImplementationOnce(((_, result) => result) as Cache["put"]);
 
       mockApi.mockResolvedValue({ hello: "world" });
 

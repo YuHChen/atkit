@@ -25,7 +25,7 @@ class MemoryCache implements Cache {
     try {
       this.cache.set(url, await resultPromise);
       return oldValue;
-    } catch (error) {
+    } catch (_) {
       return Promise.resolve(undefined);
     }
   }

@@ -1,13 +1,11 @@
 import react from "@vitejs/plugin-react";
 import { msw } from "msw/vite";
-import eslint from "vite-plugin-eslint";
 import viteTsconfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig({
   base: "/atkit/",
   plugins: [
-    eslint(),
     msw(),
     react(),
     viteTsconfigPaths()

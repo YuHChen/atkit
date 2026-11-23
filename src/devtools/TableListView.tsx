@@ -1,10 +1,10 @@
 import React from "react";
-import { Badge } from "react-bootstrap";
 import type { BadgeProps } from "react-bootstrap";
+import { Badge } from "react-bootstrap";
 
-import { getDefinedKeys, handleJson } from "./jsonUtils";
+import { Json, JsonArray, JsonObject } from "../data/types";
 import type { Handlers } from "./jsonUtils";
-import { Json, JsonArray, JsonObject } from "./types";
+import { getDefinedKeys, handleJson } from "./jsonUtils";
 
 import "./tableListView.scss";
 
@@ -39,7 +39,7 @@ const renderTable = (title: string, indent: number, array: JsonArray) => {
   const otherContent: React.JSX.Element[] = [];
   const tableJsonObjects: JsonObject[] = [];
   const uniqueFields = new Set();
-  const fieldCounts = new Map();
+  const fieldCounts = new Map<string, number>();
 
   const handlers: (index: number) => Handlers = (index: number) => {
     const handlerTitle = `${title}-${index}`;
@@ -67,7 +67,7 @@ const renderTable = (title: string, indent: number, array: JsonArray) => {
           uniqueFields.add(key);
 
           if (obj[key]) {
-            const count = fieldCounts.get(key) || 0;
+            const count = fieldCounts.get(key) ?? 0;
             fieldCounts.set(key, count + 1);
           }
         }
@@ -88,7 +88,7 @@ const renderTable = (title: string, indent: number, array: JsonArray) => {
           <tr>
             {columns.map((col) => (
               <th key={col} className="atkit-th atkit-th-sticky">
-                {col} <InstancesBadge count={fieldCounts.get(col)} />
+                {col} <InstancesBadge count={fieldCounts.get(col) ?? 0} />
               </th>
             ))}
           </tr>

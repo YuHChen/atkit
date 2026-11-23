@@ -19,7 +19,7 @@ describe("Loading", () => {
 
     const text = screen.queryByText(shouldNotBeDisplayed);
 
-    expect(text).toBeNull();
+    expect(text).not.toBeInTheDocument();
   });
 
   test("renders component given loading completed prop", () => {

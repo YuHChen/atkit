@@ -1,7 +1,7 @@
 import { http, HttpHandler, HttpResponse } from "msw/http";
 
 import { ENDPOINTS } from "../index";
-import { Json } from "../../../devtools/types";
+import { Json } from "../../types";
 
 const successfulGetHandler = (endpoint: string, mockData: Json): HttpHandler =>
   http.get(endpoint, () => HttpResponse.json(mockData, { status: 200 }));

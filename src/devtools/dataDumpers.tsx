@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { CachedAnimationThrowdown } from "../data/api";
 import type { AnimationThrowdownApi, ApiResult } from "../data/api/types";
 
+import { Json } from "../data/types";
 import DataDumper from "./DataDumper";
-import { getDefinedKeys, handleJson } from "./jsonUtils";
-import { Json } from "./types";
+import { getDefinedKeys, handleJson, processJson } from "./jsonUtils";
 
 const dataHookFactory =
   (
@@ -28,21 +28,19 @@ const dataHookFactory =
     return data;
   };
 
-const truncate = (length: number) => (data: ApiResult) => {
-  if (Array.isArray(data)) {
-    return data.toSpliced(0, data.length - length);
-  } else if (typeof data === "object") {
-    const keys = Object.keys(data);
-    const keysSubset = keys.toSpliced(0, keys.length - length);
-    const truncatedData: { [k: string]: any } = {};
-    for (const key of keysSubset) {
-      truncatedData[key] = data[key];
-    }
-    return truncatedData;
-  } else {
-    return data;
-  }
-};
+const truncate = (length: number) => (data: ApiResult) =>
+  processJson<Json, Json, Json, Json>(data ?? {}, {
+    arrayHandler: (array) => array.toSpliced(0, array.length - length),
+    objectHandler: (obj) => {
+      const keys = Object.keys(obj);
+      const keysSubset = keys.toSpliced(0, keys.length - length);
+      const truncatedData: Json = {};
+      for (const key of keysSubset) {
+        truncatedData[key] = obj[key];
+      }
+      return truncatedData;
+    },
+  });
 
 const EXCLUDED_FIELDS = [
   "attack",
@@ -66,65 +64,103 @@ const EXCLUDED_FIELDS = [
   "power",
   "release_time",
 ];
-const useUniqueCardsData = dataHookFactory("fetchCardsData", (data) => {
-  if (typeof data === "object") {
-    const uniqueKeys = new Set<string>();
-    const uniqueData: Record<string, Set<any>> = {};
+const useUniqueCardsData = dataHookFactory("fetchCardsData", (data) =>
+  processJson(data ?? {}, {
+    objectHandler: (dataObj) => {
+      const uniqueKeys = new Set<string>();
+      const uniqueData: Record<string, Set<Json>> = {};
 
-    console.debug("getting unique data");
-    for (const datum of Object.values(data)) {
-      for (const key of Object.keys(datum)) {
-        uniqueKeys.add(key);
-        if (!EXCLUDED_FIELDS.includes(key)) {
-          switch (key) {
-            case "skill":
-              const skills = uniqueData[key] ?? new Set();
-              for (const skill of datum[key]) {
-                skills.add(skill.id);
-              }
-              uniqueData[key] = skills;
-              break;
-            case "trait":
-              const traits = uniqueData[key] ?? new Set();
-              for (const trait of datum[key]) {
-                traits.add(trait);
-              }
-              uniqueData[key] = traits;
-              break;
-            case "upgrade":
-              const upgradeKeys = uniqueData["upgradeKeys"] ?? new Set();
-              const upgradeSkills = uniqueData["upgradeSkills"] ?? new Set();
-              for (const upgrade of datum[key]) {
-                for (const upgradeKey of Object.keys(upgrade)) {
-                  upgradeKeys.add(upgradeKey);
+      console.debug("getting unique data");
+      for (const datum of Object.values(dataObj)) {
+        handleJson(datum, {
+          objectHandler: (datumObj) => {
+            for (const key of Object.keys(datumObj)) {
+              uniqueKeys.add(key);
+              if (!EXCLUDED_FIELDS.includes(key)) {
+                switch (key) {
+                  case "skill": {
+                    const skills = uniqueData[key] ?? new Set();
+                    handleJson(datumObj[key], {
+                      arrayHandler: (skillsArray) => {
+                        for (const skill of skillsArray) {
+                          handleJson(skill, {
+                            objectHandler: (skillObj) =>
+                              skills.add(skillObj.id),
+                          });
+                        }
+                      },
+                    });
+                    uniqueData[key] = skills;
+                    break;
+                  }
+                  case "trait": {
+                    const traits = uniqueData[key] ?? new Set();
+                    handleJson(datumObj[key], {
+                      arrayHandler: (traitsArray) => {
+                        for (const trait of traitsArray) {
+                          traits.add(trait);
+                        }
+                      },
+                    });
+                    uniqueData[key] = traits;
+                    break;
+                  }
+                  case "upgrade": {
+                    const upgradeKeys = uniqueData["upgradeKeys"] ?? new Set();
+                    const upgradeSkills =
+                      uniqueData["upgradeSkills"] ?? new Set();
+                    handleJson(datumObj[key], {
+                      arrayHandler: (upgradesArray) => {
+                        for (const upgrade of upgradesArray) {
+                          handleJson(upgrade, {
+                            objectHandler: (upgradeObj) => {
+                              for (const upgradeKey of Object.keys(
+                                upgradeObj,
+                              )) {
+                                upgradeKeys.add(upgradeKey);
+                              }
+                              handleJson(upgradeObj.skill, {
+                                arrayHandler: (upgradeSkillsArray) => {
+                                  for (const upgradeSkill of upgradeSkillsArray) {
+                                    handleJson(upgradeSkill, {
+                                      objectHandler: (upgradeSkillObj) =>
+                                        upgradeSkills.add(upgradeSkillObj.id),
+                                    });
+                                  }
+                                },
+                              });
+                            },
+                          });
+                        }
+                      },
+                    });
+                    uniqueData["upgradeKeys"] = upgradeKeys;
+                    uniqueData["upgradeSkills"] = upgradeSkills;
+                    break;
+                  }
+                  default:
+                    uniqueData[key] = (uniqueData[key] ?? new Set()).add(
+                      datumObj[key],
+                    );
                 }
-                for (const upgradeSkill of upgrade.skill ?? []) {
-                  upgradeSkills.add(upgradeSkill.id);
-                }
               }
-              uniqueData["upgradeKeys"] = upgradeKeys;
-              uniqueData["upgradeSkills"] = upgradeSkills;
-              break;
-            default:
-              uniqueData[key] = (uniqueData[key] ?? new Set()).add(datum[key]);
-          }
-        }
+            }
+          },
+        });
       }
-    }
 
-    console.debug("transforming unique data");
-    const result: Record<string, any[]> = {};
-    for (const [k, v] of Object.entries(uniqueData)) {
-      result[k] = [...v];
-    }
-    return {
-      uniqueKeys: Array.from(uniqueKeys),
-      ...result,
-    };
-  } else {
-    return data;
-  }
-});
+      console.debug("transforming unique data");
+      const result: Record<string, Json[]> = {};
+      for (const [k, v] of Object.entries(uniqueData)) {
+        result[k] = [...v];
+      }
+      return {
+        uniqueKeys: Array.from(uniqueKeys),
+        ...result,
+      };
+    },
+  }),
+);
 
 class Schema {
   private keyCount: number = 0;
@@ -138,8 +174,6 @@ class Schema {
 
   public extract(data: Json): this {
     handleJson(data, {
-      nullHandler: () => {},
-      primativeHandler: () => {},
       arrayHandler: (array) => {
         this.instances += array.length;
         const arraySchema =
@@ -159,8 +193,8 @@ class Schema {
     return this;
   }
 
-  public asRecord(): Record<string, any> {
-    const nestedSchema: Record<string, any> = {};
+  public asRecord(): Record<string, Json> {
+    const nestedSchema: Record<string, Json> = {};
     for (const [key, schema] of this.nestedSchema.entries()) {
       if (key === "arrayElement") {
         return {
@@ -180,23 +214,21 @@ class Schema {
     };
   }
 }
-const useCardsSchemaTree = dataHookFactory("fetchCardsData", (data) => {
-  if (typeof data === "object") {
-    console.debug("building cards schema");
-    return new Schema().extract(Object.values(data)).asRecord();
-  } else {
-    return data;
-  }
-});
+const useCardsSchemaTree = dataHookFactory("fetchCardsData", (data) =>
+  processJson(data ?? {}, {
+    objectHandler: (obj) => {
+      console.debug("building cards schema");
+      return new Schema().extract(Object.values(obj)).asRecord();
+    },
+  }),
+);
 
 const useCardsData = (length?: number) =>
   dataHookFactory("fetchCardsData", (data) => {
-    const truncatedData = length ? truncate(length)(data) : data;
-    if (typeof truncatedData === "object") {
-      return Object.values(truncatedData);
-    } else {
-      return truncatedData;
-    }
+    const truncatedData = length ? truncate(length)(data) : (data ?? {});
+    return processJson(truncatedData, {
+      objectHandler: (obj) => Object.values(obj),
+    });
   });
 
 const CardsDataDumper: React.FC = () => (
@@ -208,19 +240,16 @@ const CardsDataDumper: React.FC = () => (
   </React.Fragment>
 );
 
-const useCombosSummary = dataHookFactory("fetchCombosData", (data) => {
-  if (Array.isArray(data)) {
-    return {
-      arrayLength: data.length,
-    };
-  } else if (typeof data === "object") {
-    return {
-      entriesCount: Object.entries(data).length,
-    };
-  } else {
-    return data;
-  }
-});
+const useCombosSummary = dataHookFactory("fetchCombosData", (data) =>
+  processJson(data ?? {}, {
+    arrayHandler: (array) => ({
+      arrayLength: array.length,
+    }),
+    objectHandler: (obj) => ({
+      entriesCount: Object.entries(obj).length,
+    }),
+  }),
+);
 
 const useCombosData = (length?: number) =>
   dataHookFactory(

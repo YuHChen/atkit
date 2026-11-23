@@ -6,6 +6,9 @@ import xml from "../assets/js/@highlightjs/cdn-assets/es/languages/xml.min.js";
 import "../assets/js/@highlightjs/cdn-assets/styles/vs2015.css";
 import "./codeBlock.scss";
 
+// no types for hljs and related imports
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+
 // limiting to subset of languages at
 // https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
 const LANGUAGES = {
