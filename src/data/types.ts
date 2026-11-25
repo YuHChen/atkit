@@ -1,7 +1,5 @@
-type Json = string | number | JsonObject | JsonArray | boolean | null;
+export type Json = string | number | JsonObject | JsonArray | boolean | null;
 
-type JsonObject = { [key: string]: Json };
+export type JsonObject = { [key: string]: Json };
 
-type JsonArray = Json[];
-
-export type { Json, JsonArray, JsonObject };
+export type JsonArray = Json[];

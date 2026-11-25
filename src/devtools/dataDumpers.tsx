@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-
 import { CachedAnimationThrowdown } from "../data/api";
-import type { AnimationThrowdownApi, ApiResult } from "../data/api/types";
-
+import { AnimationThrowdownApi, ApiResult } from "../data/api/types";
 import { Json } from "../data/types";
 import DataDumper from "./DataDumper";
 import { getDefinedKeys, handleJson, processJson } from "./jsonUtils";
@@ -231,7 +229,7 @@ const useCardsData = (length?: number) =>
     });
   });
 
-const CardsDataDumper: React.FC = () => (
+export const CardsDataDumper: React.FC = () => (
   <React.Fragment>
     <DataDumper data={useUniqueCardsData()} title="unique data" />
     <DataDumper data={useCardsSchemaTree()} title="cards schema tree" />
@@ -257,12 +255,10 @@ const useCombosData = (length?: number) =>
     length ? truncate(length) : (data) => data,
   );
 
-const CombosDataDumper: React.FC = () => (
+export const CombosDataDumper: React.FC = () => (
   <React.Fragment>
     <DataDumper data={useCombosSummary()} title="combos summary" />
     {/* <DataDumper data={useCombosData()()} /> */}
     <DataDumper data={useCombosData(100)()} viewJson={true} />
   </React.Fragment>
 );
-
-export { CardsDataDumper, CombosDataDumper };

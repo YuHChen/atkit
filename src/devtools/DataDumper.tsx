@@ -1,8 +1,6 @@
 import React from "react";
-
 import Loading from "../data/Loading";
-
-import type { Json } from "../data/types";
+import { Json } from "../data/types";
 import JsonView from "./JsonView";
 import TableListView from "./TableListView";
 

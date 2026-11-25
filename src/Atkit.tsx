@@ -1,16 +1,13 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
-
+import { Route, HashRouter as Router, Routes } from "react-router-dom";
 import logo from "./assets/logo.png";
-
 import Cards from "./cards/Cards";
 import Combos from "./combos/Combos";
 import ComboMap from "./deck/ComboMap";
+import { CardsDataDumper, CombosDataDumper } from "./devtools/dataDumpers";
 import Home from "./home/Home";
 import NoMatch from "./NoMatch";
-
-import { CardsDataDumper, CombosDataDumper } from "./devtools/dataDumpers";
 
 interface DevoAwareProps {
   isDevo: boolean;

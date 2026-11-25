@@ -1,7 +1,6 @@
 import { http, HttpHandler, HttpResponse } from "msw/http";
-
-import { ENDPOINTS } from "../index";
 import { Json } from "../../types";
+import { ENDPOINTS } from "../index";
 
 const successfulGetHandler = (endpoint: string, mockData: Json): HttpHandler =>
   http.get(endpoint, () => HttpResponse.json(mockData, { status: 200 }));
@@ -344,6 +343,7 @@ const combosRequestHandler: HttpHandler = successfulGetHandler(
   { "10009~10051": "15178|" },
 );
 
-const handlers: HttpHandler[] = [cardsRequestHandler, combosRequestHandler];
-
-export { handlers };
+export const handlers: HttpHandler[] = [
+  cardsRequestHandler,
+  combosRequestHandler,
+];

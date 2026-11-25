@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react";
-
 import ComboMap from "../ComboMap";
 
 describe("ComboMap", () => {

@@ -1,8 +1,7 @@
-import type { ApiResult } from "../types";
+import { ApiResult } from "../types";
+import { Cache } from "./types";
 
-import type { Cache } from "./types";
-
-class MemoryCache implements Cache {
+export default class MemoryCache implements Cache {
   private cache: Map<string, ApiResult>;
 
   constructor() {
@@ -44,5 +43,3 @@ class MemoryCache implements Cache {
     return Promise.resolve(true);
   }
 }
-
-export default MemoryCache;

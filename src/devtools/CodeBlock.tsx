@@ -1,5 +1,4 @@
 import React from "react";
-
 import hljs from "../assets/js/@highlightjs/cdn-assets/es/core.js";
 import json from "../assets/js/@highlightjs/cdn-assets/es/languages/json.min.js";
 import xml from "../assets/js/@highlightjs/cdn-assets/es/languages/xml.min.js";

@@ -1,6 +1,5 @@
 import React from "react";
 import { Stack } from "react-bootstrap";
-
 import Wip from "../Wip";
 import Card, { CardProps } from "./Card";
 

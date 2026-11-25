@@ -1,8 +1,7 @@
 import { HttpResponse, http } from "msw";
-
 import AnimationThrowdown from "../index";
 import { server } from "../mocks/server";
-import type { AnimationThrowdownApi, Api, ApiResult } from "../types";
+import { AnimationThrowdownApi, Api, ApiResult } from "../types";
 
 describe("Animation Throwdown APIs", () => {
   beforeAll(() => server.listen());

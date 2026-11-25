@@ -1,5 +1,5 @@
-import type { Cache, CacheCtor } from "../types";
 import MemoryCache from "../MemoryCache";
+import { Cache, CacheCtor } from "../types";
 
 const NO_ENTRY_KEY = "no entry";
 

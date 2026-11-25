@@ -1,8 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-
 import Atkit from "./Atkit";
-
 import "./index.scss";
 
 // see https://create-react-app.dev/docs/adding-custom-environment-variables/

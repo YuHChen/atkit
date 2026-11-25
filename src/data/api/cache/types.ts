@@ -1,6 +1,6 @@
-import type { ApiResult } from "../types";
+import { ApiResult } from "../types";
 
-interface Cache {
+export interface Cache {
   contains: (url: string) => Promise<boolean>;
 
   get: (url: string) => Promise<ApiResult>;
@@ -32,8 +32,6 @@ interface Cache {
   reset: () => Promise<boolean>;
 }
 
-interface CacheCtor {
+export interface CacheCtor {
   new (): Cache;
 }
-
-export type { Cache, CacheCtor };

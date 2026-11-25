@@ -1,12 +1,10 @@
 import { Json } from "../types";
 
-type ApiResult = Json | undefined;
+export type ApiResult = Json | undefined;
 
-type Api = () => Promise<ApiResult>;
+export type Api = () => Promise<ApiResult>;
 
-interface AnimationThrowdownApi {
+export interface AnimationThrowdownApi {
   fetchCardsData: Api;
   fetchCombosData: Api;
 }
-
-export type { AnimationThrowdownApi, Api, ApiResult };

@@ -1,19 +1,19 @@
 import { Json, JsonArray, JsonObject } from "../data/types";
 
-const prettyPrint = (json: Json): string =>
+export const prettyPrint = (json: Json): string =>
   "string" === typeof json ? json : JSON.stringify(json, null, 2);
 
-const getDefinedKeys = (obj: JsonObject): string[] =>
+export const getDefinedKeys = (obj: JsonObject): string[] =>
   Object.keys(obj).filter((key) => undefined !== obj[key]);
 
-interface Processors<N, A, O, P> {
+export interface Processors<N, A, O, P> {
   nullHandler: () => N;
   arrayHandler: (array: JsonArray) => A;
   objectHandler: (obj: JsonObject) => O;
   primativeHandler: (primative: string | number | boolean) => P;
 }
 
-const processJson = <N, A, O, P>(
+export const processJson = <N, A, O, P>(
   json: Json,
   processors: Partial<Processors<N, A, O, P>>,
 ) => {
@@ -29,11 +29,7 @@ const processJson = <N, A, O, P>(
   }
 };
 
-type Handlers = Processors<void, void, void, void>;
+export type Handlers = Processors<void, void, void, void>;
 
-const handleJson = (json: Json, handlers: Partial<Handlers>) =>
+export const handleJson = (json: Json, handlers: Partial<Handlers>) =>
   processJson(json, handlers);
-
-export type { Handlers, Processors };
-
-export { getDefinedKeys, handleJson, prettyPrint, processJson };

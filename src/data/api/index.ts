@@ -1,8 +1,8 @@
 import MemoryCache from "./cache/MemoryCache";
 import withCache from "./cache/withCache";
-import type { AnimationThrowdownApi, ApiResult } from "./types";
+import { AnimationThrowdownApi, ApiResult } from "./types";
 
-const ENDPOINTS = {
+export const ENDPOINTS = {
   CARDS: new URL("../../assets/data/cards.json", import.meta.url).href,
   COMBOS: new URL("../../assets/data/combos.json", import.meta.url).href,
 };
@@ -27,4 +27,4 @@ const CACHED_INSTANCE = withCache(INSTANCE, MemoryCache);
 
 export default INSTANCE;
 
-export { CACHED_INSTANCE as CachedAnimationThrowdown, ENDPOINTS };
+export { CACHED_INSTANCE as CachedAnimationThrowdown };

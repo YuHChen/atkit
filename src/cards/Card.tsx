@@ -1,9 +1,9 @@
 import React from "react";
-import { ListGroup, ListGroupItem, Card } from "react-bootstrap";
+import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 
 type CardType = "character" | "object" | "power";
 
-interface CardProps {
+export interface CardProps {
   // primary props (card face)
   name: string;
 
@@ -34,6 +34,4 @@ const AtCard: React.FC<CardProps> = ({ name, type, id }: CardProps) => (
   </Card>
 );
 
-export type { CardProps };
-
-export { AtCard as default };
+export default AtCard;

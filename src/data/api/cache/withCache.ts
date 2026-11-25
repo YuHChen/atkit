@@ -1,6 +1,5 @@
-import type { AnimationThrowdownApi, Api, ApiResult } from "../types";
-
-import type { Cache, CacheCtor } from "./types";
+import { AnimationThrowdownApi, Api, ApiResult } from "../types";
+import { Cache, CacheCtor } from "./types";
 
 class CachedAnimationThrowdownApi implements AnimationThrowdownApi {
   private animationThrowdownApi: AnimationThrowdownApi;

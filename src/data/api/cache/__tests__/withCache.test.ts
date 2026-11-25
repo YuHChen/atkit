@@ -1,8 +1,6 @@
 import { Mock, vi } from "vitest";
-
-import type { AnimationThrowdownApi } from "../../types";
-
-import type { Cache, CacheCtor } from "../types";
+import { AnimationThrowdownApi } from "../../types";
+import { Cache, CacheCtor } from "../types";
 import withCache from "../withCache";
 
 const mockAnimationThrowdownApi: AnimationThrowdownApi = {
