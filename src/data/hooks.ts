@@ -6,11 +6,13 @@ import { Json } from "./types";
 
 const toString = (json: Json): string => new String(json).toString();
 
+const CARD_TYPE_MAPPING: Record<string, CardType> = { final_form: "power" };
 const CARD_TYPES = ["character", "object", "power", "unknown"] as const;
 type CardType = (typeof CARD_TYPES)[number];
 const toCardType = (input: string): CardType => {
   return (
     CARD_TYPES.find((cardType): cardType is CardType => cardType === input) ??
+    CARD_TYPE_MAPPING[input] ??
     "unknown"
   );
 };
