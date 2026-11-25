@@ -1,6 +1,5 @@
 import react from "@vitejs/plugin-react";
 import { msw } from "msw/vite";
-import viteTsconfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig({
@@ -8,8 +7,10 @@ export default defineConfig({
   plugins: [
     msw(),
     react(),
-    viteTsconfigPaths()
   ],
+  resolve: {
+    tsconfigPaths: true,
+  },
   server: {
     open: true,
     port: 3000,
