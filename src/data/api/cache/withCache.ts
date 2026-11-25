@@ -14,7 +14,7 @@ class CachedAnimationThrowdownApi implements AnimationThrowdownApi {
    * Wraps an individual API with the cache.
    *
    * @param api The underlying API call to cache.
-   * @returns `Api` with caching capabilities.
+   * @returns `ApiResult` from cache or underlying API.
    */
   private async withCache(api: Api): Promise<ApiResult> {
     const key = api.name;
@@ -22,7 +22,12 @@ class CachedAnimationThrowdownApi implements AnimationThrowdownApi {
       return this.cache.get(key);
     } else {
       const value = api.call(this.animationThrowdownApi);
-      return this.cache.put(key, value);
+      // cache asynchronously
+      this.cache.put(key, value).catch((err) => {
+        console.warn(`Failed to cache ${key}`, err);
+      });
+      // cache put returns previous data, so return fetched data instead
+      return value;
     }
   }
 
