@@ -18,7 +18,7 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     coverage: {
-      include: ["src/**"],
+      include: ["src/**/*.{ts,tsx}"],
       exclude: [
         "src/index.tsx",
         "src/assets/js/**",
