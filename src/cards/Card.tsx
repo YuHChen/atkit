@@ -1,20 +1,14 @@
 import React from "react";
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Card as CardProps } from "../data/hooks";
 
-type CardType = "character" | "object" | "power";
+export type CardRenderProps = CardProps;
 
-export interface CardProps {
-  // primary props (card face)
-  name: string;
-
-  // secondary props (additional details)
-  type: CardType;
-
-  // meta props
-  id: string;
-}
-
-const AtCard: React.FC<CardProps> = ({ name, type, id }: CardProps) => (
+const AtCard: React.FC<CardRenderProps> = ({
+  name,
+  type,
+  id,
+}: CardRenderProps) => (
   <Card border="secondary" as="article" aria-label={name}>
     <Card.Header>{name}</Card.Header>
     <ListGroup variant="flush">

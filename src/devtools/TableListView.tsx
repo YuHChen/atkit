@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge, BadgeProps } from "react-bootstrap";
+import { getDefinedKeys, handleJson, Handlers } from "../data/jsonUtils";
 import { Json, JsonArray, JsonObject } from "../data/types";
-import { getDefinedKeys, handleJson, Handlers } from "./jsonUtils";
 import "./tableListView.scss";
 
 const INDENT = (indent: number) => "".padStart(indent * 2, "-");

@@ -1,22 +1,25 @@
 import React from "react";
 import { Stack } from "react-bootstrap";
+import { Card as CardProps } from "../data/hooks";
+import Loading from "../data/Loading";
 import Wip from "../Wip";
-import Card, { CardProps } from "./Card";
+import Card from "./Card";
 
-const cardsData = [
-  { name: "obj 1", type: "object", id: "1" },
-  { name: "char 1", type: "character", id: "2" },
-] satisfies CardProps[];
+export interface CardsProps {
+  cards?: CardProps[];
+}
 
-const Cards: React.FC = () => (
-  <React.Fragment>
-    <Wip pageName="cards page" />
-    <Stack gap={3}>
-      {cardsData.map((cardData) => (
-        <Card key={cardData.id} {...cardData} />
-      ))}
-    </Stack>
-  </React.Fragment>
-);
+const Cards: React.FC<CardsProps> = ({ cards }: CardsProps) => {
+  return (
+    <React.Fragment>
+      <Wip pageName="cards page" />
+      <Loading loading={null === cards || undefined === cards}>
+        <Stack gap={3}>
+          {cards && cards.map((card) => <Card key={card.id} {...card} />)}
+        </Stack>
+      </Loading>
+    </React.Fragment>
+  );
+};
 
 export default Cards;

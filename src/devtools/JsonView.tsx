@@ -1,7 +1,7 @@
 import React from "react";
+import { prettyPrint } from "../data/jsonUtils";
 import { Json } from "../data/types";
 import CodeBlock from "./CodeBlock";
-import { prettyPrint } from "./jsonUtils";
 
 interface JsonViewProps {
   json: Json;

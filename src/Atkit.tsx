@@ -4,6 +4,7 @@ import { Route, HashRouter as Router, Routes } from "react-router-dom";
 import logo from "./assets/logo.png";
 import Cards from "./cards/Cards";
 import Combos from "./combos/Combos";
+import { Hooks } from "./data/hooks";
 import ComboMap from "./deck/ComboMap";
 import { CardsDataDumper, CombosDataDumper } from "./devtools/dataDumpers";
 import Home from "./home/Home";
@@ -61,7 +62,11 @@ const NavBar = (props: DevoAwareProps) => (
   </Navbar>
 );
 
-const Atkit = (props: DevoAwareProps) => (
+export interface AtkitProps extends DevoAwareProps {
+  hooks: Hooks;
+}
+
+const Atkit = (props: AtkitProps) => (
   <Router>
     <div className="atkit">
       <NavBar isDevo={props.isDevo} />
@@ -69,7 +74,10 @@ const Atkit = (props: DevoAwareProps) => (
       <Container>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/cards" element={<Cards />} />
+          <Route
+            path="/cards"
+            element={<Cards cards={props.hooks.useCardsData()} />}
+          />
           <Route path="/combos" element={<Combos />} />
           <Route path="/combomap" element={<ComboMap />} />
           {props.isDevo && (

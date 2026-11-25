@@ -86,5 +86,22 @@ describe("withCache", () => {
       expect(actual).not.toBeNull();
       expect(actual).toEqual({ hello: "cached world" });
     });
+
+    test("given api fails to cache, then calls api on next invocation", async () => {
+      const cachedApi = withCache(mockAnimationThrowdownApi, mockCache);
+
+      mockContains.mockResolvedValue(false);
+      mockPut
+        .mockImplementationOnce(((_, _result) =>
+          Promise.reject(new Error("test"))) as Cache["put"])
+        .mockImplementationOnce(((_, result) => result) as Cache["put"]);
+
+      mockApi.mockResolvedValue({ hello: "world" });
+
+      await cachedApi[apiName].call(cachedApi);
+      await cachedApi[apiName].call(cachedApi);
+
+      expect(mockApi).toBeCalledTimes(2);
+    });
   });
 });

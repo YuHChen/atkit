@@ -1,4 +1,4 @@
-import { Json, JsonArray, JsonObject } from "../data/types";
+import { Json, JsonArray, JsonObject } from "./types";
 
 export const prettyPrint = (json: Json): string =>
   "string" === typeof json ? json : JSON.stringify(json, null, 2);

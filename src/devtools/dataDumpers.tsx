@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { CachedAnimationThrowdown } from "../data/api";
 import { AnimationThrowdownApi, ApiResult } from "../data/api/types";
+import { getDefinedKeys, handleJson, processJson } from "../data/jsonUtils";
 import { Json } from "../data/types";
 import DataDumper from "./DataDumper";
-import { getDefinedKeys, handleJson, processJson } from "./jsonUtils";
 
 const dataHookFactory =
   (
