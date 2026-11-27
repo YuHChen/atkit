@@ -28,8 +28,8 @@ const dataHookFactory =
 
 const truncate = (length: number) => (data: ApiResult) =>
   processJson<Json, Json, Json, Json>(data ?? {}, {
-    arrayHandler: (array) => array.toSpliced(0, array.length - length),
-    objectHandler: (obj) => {
+    array: (array) => array.toSpliced(0, array.length - length),
+    object: (obj) => {
       const keys = Object.keys(obj);
       const keysSubset = keys.toSpliced(0, keys.length - length);
       const truncatedData: Json = {};
@@ -64,14 +64,14 @@ const EXCLUDED_FIELDS = [
 ];
 const useUniqueCardsData = dataHookFactory("fetchCardsData", (data) =>
   processJson(data ?? {}, {
-    objectHandler: (dataObj) => {
+    object: (dataObj) => {
       const uniqueKeys = new Set<string>();
       const uniqueData: Record<string, Set<Json>> = {};
 
       console.debug("getting unique data");
       for (const datum of Object.values(dataObj)) {
         handleJson(datum, {
-          objectHandler: (datumObj) => {
+          object: (datumObj) => {
             for (const key of Object.keys(datumObj)) {
               uniqueKeys.add(key);
               if (!EXCLUDED_FIELDS.includes(key)) {
@@ -79,11 +79,10 @@ const useUniqueCardsData = dataHookFactory("fetchCardsData", (data) =>
                   case "skill": {
                     const skills = uniqueData[key] ?? new Set();
                     handleJson(datumObj[key], {
-                      arrayHandler: (skillsArray) => {
+                      array: (skillsArray) => {
                         for (const skill of skillsArray) {
                           handleJson(skill, {
-                            objectHandler: (skillObj) =>
-                              skills.add(skillObj.id),
+                            object: (skillObj) => skills.add(skillObj.id),
                           });
                         }
                       },
@@ -94,7 +93,7 @@ const useUniqueCardsData = dataHookFactory("fetchCardsData", (data) =>
                   case "trait": {
                     const traits = uniqueData[key] ?? new Set();
                     handleJson(datumObj[key], {
-                      arrayHandler: (traitsArray) => {
+                      array: (traitsArray) => {
                         for (const trait of traitsArray) {
                           traits.add(trait);
                         }
@@ -108,20 +107,20 @@ const useUniqueCardsData = dataHookFactory("fetchCardsData", (data) =>
                     const upgradeSkills =
                       uniqueData["upgradeSkills"] ?? new Set();
                     handleJson(datumObj[key], {
-                      arrayHandler: (upgradesArray) => {
+                      array: (upgradesArray) => {
                         for (const upgrade of upgradesArray) {
                           handleJson(upgrade, {
-                            objectHandler: (upgradeObj) => {
+                            object: (upgradeObj) => {
                               for (const upgradeKey of Object.keys(
                                 upgradeObj,
                               )) {
                                 upgradeKeys.add(upgradeKey);
                               }
                               handleJson(upgradeObj.skill, {
-                                arrayHandler: (upgradeSkillsArray) => {
+                                array: (upgradeSkillsArray) => {
                                   for (const upgradeSkill of upgradeSkillsArray) {
                                     handleJson(upgradeSkill, {
-                                      objectHandler: (upgradeSkillObj) =>
+                                      object: (upgradeSkillObj) =>
                                         upgradeSkills.add(upgradeSkillObj.id),
                                     });
                                   }
@@ -172,7 +171,7 @@ class Schema {
 
   public extract(data: Json): this {
     handleJson(data, {
-      arrayHandler: (array) => {
+      array: (array) => {
         this.instances += array.length;
         const arraySchema =
           this.nestedSchema.get("arrayElement") ?? new Schema();
@@ -181,7 +180,7 @@ class Schema {
         }
         this.nestedSchema.set("arrayElement", arraySchema);
       },
-      objectHandler: (obj) => {
+      object: (obj) => {
         for (const key of getDefinedKeys(obj)) {
           const keySchema = this.nestedSchema.get(key) ?? new Schema();
           this.nestedSchema.set(key, keySchema.increment().extract(obj[key]));
@@ -214,7 +213,7 @@ class Schema {
 }
 const useCardsSchemaTree = dataHookFactory("fetchCardsData", (data) =>
   processJson(data ?? {}, {
-    objectHandler: (obj) => {
+    object: (obj) => {
       console.debug("building cards schema");
       return new Schema().extract(Object.values(obj)).asRecord();
     },
@@ -225,7 +224,7 @@ const useCardsData = (length?: number) =>
   dataHookFactory("fetchCardsData", (data) => {
     const truncatedData = length ? truncate(length)(data) : (data ?? {});
     return processJson(truncatedData, {
-      objectHandler: (obj) => Object.values(obj),
+      object: (obj) => Object.values(obj),
     });
   });
 
@@ -240,10 +239,10 @@ export const CardsDataDumper: React.FC = () => (
 
 const useCombosSummary = dataHookFactory("fetchCombosData", (data) =>
   processJson(data ?? {}, {
-    arrayHandler: (array) => ({
+    array: (array) => ({
       arrayLength: array.length,
     }),
-    objectHandler: (obj) => ({
+    object: (obj) => ({
       entriesCount: Object.entries(obj).length,
     }),
   }),

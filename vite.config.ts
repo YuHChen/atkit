@@ -29,26 +29,10 @@ export default defineConfig({
         ...coverageConfigDefaults.exclude
       ],
       thresholds: {
-        'src/**/!(hooks|jsonUtils).{ts,tsx}': {
-          branches: 90,
-          functions: 90,
-          lines: 90,
-          statements: 90,
-        },
-        // TODO: add tests
-        'src/data/hooks.ts': {
-          branches: 0,
-          functions: 0,
-          lines: 0,
-          statements: 0,
-        },
-        // TODO: add tests
-        'src/data/jsonUtils.ts': {
-          branches: 0,
-          functions: 0,
-          lines: 20,
-          statements: 20,
-        },
+        branches: 90,
+        functions: 90,
+        lines: 90,
+        statements: 90,
       },
     },
   },

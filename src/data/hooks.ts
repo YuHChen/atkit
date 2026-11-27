@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CachedAnimationThrowdown } from "./api";
 import { AnimationThrowdownApi, ApiResult } from "./api/types";
-import { processJson } from "./jsonUtils";
+import { handleJson } from "./jsonUtils";
 import { Json } from "./types";
 
 const toString = (json: Json): string => new String(json).toString();
@@ -33,13 +33,13 @@ const transformCardDataToCards = (result: ApiResult): Card[] => {
 
   const transformed: Card[] = [];
 
-  processJson(result ?? {}, {
-    objectHandler: (obj) =>
-      processJson(Object.values(obj), {
-        arrayHandler: (cardData) =>
+  handleJson(result ?? {}, {
+    object: (obj) =>
+      handleJson(Object.values(obj), {
+        array: (cardData) =>
           cardData.forEach((cardDatum) =>
-            processJson(cardDatum, {
-              objectHandler: (card) =>
+            handleJson(cardDatum, {
+              object: (card) =>
                 transformed.push({
                   name: toString(card.name),
                   type: toCardType(new String(card.card_type).toString()),

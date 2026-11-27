@@ -7,10 +7,10 @@ export const getDefinedKeys = (obj: JsonObject): string[] =>
   Object.keys(obj).filter((key) => undefined !== obj[key]);
 
 export interface Processors<N, A, O, P> {
-  nullHandler: () => N;
-  arrayHandler: (array: JsonArray) => A;
-  objectHandler: (obj: JsonObject) => O;
-  primativeHandler: (primative: string | number | boolean) => P;
+  null: () => N;
+  array: (array: JsonArray) => A;
+  object: (obj: JsonObject) => O;
+  primative: (primative: string | number | boolean) => P;
 }
 
 export const processJson = <N, A, O, P>(
@@ -19,13 +19,13 @@ export const processJson = <N, A, O, P>(
 ) => {
   const identity = () => json;
   if (null === json) {
-    return (processors.nullHandler ?? identity)();
+    return (processors.null ?? identity)();
   } else if (Array.isArray(json)) {
-    return (processors.arrayHandler ?? identity)(json);
+    return (processors.array ?? identity)(json);
   } else if ("object" === typeof json) {
-    return (processors.objectHandler ?? identity)(json);
+    return (processors.object ?? identity)(json);
   } else {
-    return (processors.primativeHandler ?? identity)(json);
+    return (processors.primative ?? identity)(json);
   }
 };
 

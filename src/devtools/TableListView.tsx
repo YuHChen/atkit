@@ -40,15 +40,14 @@ const renderTable = (title: string, indent: number, array: JsonArray) => {
   const handlers: (index: number) => Handlers = (index: number) => {
     const handlerTitle = `${title}-${index}`;
     return {
-      nullHandler: () =>
-        otherContent.push(NOTHING_TO_SEE(handlerTitle, indent)),
-      primativeHandler: (primative) =>
+      null: () => otherContent.push(NOTHING_TO_SEE(handlerTitle, indent)),
+      primative: (primative) =>
         otherContent.push(
           <p key={handlerTitle}>
             {INDENT(indent)} {handlerTitle}: {primative}
           </p>,
         ),
-      arrayHandler: (array) =>
+      array: (array) =>
         otherContent.push(
           <TableView
             key={handlerTitle}
@@ -57,7 +56,7 @@ const renderTable = (title: string, indent: number, array: JsonArray) => {
             array={array}
           />,
         ),
-      objectHandler: (obj) => {
+      object: (obj) => {
         tableJsonObjects.push(obj);
         for (const key of getDefinedKeys(obj)) {
           uniqueFields.add(key);
@@ -136,18 +135,18 @@ const renderTableList = (
   let tableList: React.JSX.Element = <React.Fragment />;
 
   handleJson(json, {
-    nullHandler: () => (tableList = NOTHING_TO_SEE(title, indent)),
-    primativeHandler: (primative) =>
+    null: () => (tableList = NOTHING_TO_SEE(title, indent)),
+    primative: (primative) =>
       (tableList = (
         <p key={title}>
           {INDENT(indent)} {title}: {primative}
         </p>
       )),
-    arrayHandler: (array) =>
+    array: (array) =>
       (tableList = (
         <TableView key={title} title={title} indent={indent} array={array} />
       )),
-    objectHandler: (obj) =>
+    object: (obj) =>
       (tableList = (
         <React.Fragment key={title}>
           <h2>
